@@ -1,6 +1,6 @@
 {
   "name": "astar-typescript",
-  "version": "0.0.43",
+  "version": "0.0.44",
   "description": "A*(a-star) pathfinding in TypeScript",
   "keywords": [
     "AStar",
