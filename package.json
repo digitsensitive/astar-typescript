@@ -1,0 +1,26 @@
+{
+  "name": "astar-typescript",
+  "version": "0.0.43",
+  "description": "A*(a-star) pathfinding in TypeScript",
+  "keywords": [
+    "AStar",
+    "A*",
+    "Pathfinding",
+    "TypeScript"
+  ],
+  "bugs": {
+    "email": "digit.sensitivee@gmail.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Eric Kuhn",
+    "email": "digit.sensitivee@gmail.com"
+  },
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.4"
+  }
+}
