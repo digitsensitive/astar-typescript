@@ -12,15 +12,18 @@
     "email": "digit.sensitivee@gmail.com"
   },
   "license": "MIT",
-  "author": {
-    "name": "Eric Kuhn",
-    "email": "digit.sensitivee@gmail.com"
-  },
+  "author": "Eric Kuhn <digit.sensitivee@gmail.com>",
   "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "lodash": "^4.17.4"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digitsensitive/astar-typescript.git"
+  },
+  "homepage": "https://github.com/digitsensitive/astar-typescript#readme"
 }
