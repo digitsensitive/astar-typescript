@@ -220,4 +220,17 @@ export class Grid {
    */
   public getGridHeight(): number { return this.m_gridHeight; }
 
+  /**
+   * Clean the grid
+   */
+  public cleanGrid(): void {
+    for (let y = 0; y < this.m_grid.length; y++) {
+      for (let x = 0; x < this.m_grid[y].length; x++) {
+        this.m_grid[y][x].setIsOnClosedList(false);
+        this.m_grid[y][x].setIsOnOpenList(false);
+        this.m_grid[y][x].setParent(undefined);
+      }
+    }
+  }
+
 }
