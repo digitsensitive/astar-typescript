@@ -12,13 +12,13 @@
     "email": "digit.sensitivee@gmail.com"
   },
   "license": "MIT",
-  "author": "Eric Kuhn <digit.sensitivee@gmail.com>",
+  "author": "Digitsensitive <digit.sensitivee@gmail.com>",
   "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "4.17.14"
   },
   "devDependencies": {},
   "repository": {
