@@ -1,15 +1,12 @@
 /**
-* @author       Eric Kuhn <digit.sensitivee@gmail.com>
-* @copyright    2017 Eric Kuhn
-* @license      {@link https://opensource.org/licenses/MIT|MIT License}
-*/
+ * @author       Eric Kuhn <digit.sensitivee@gmail.com>
+ * @copyright    2017 Eric Kuhn
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ */
 
-
-import { Node } from './Node'
-
+import { Node } from './Node';
 
 export class Grid {
-
   /*  General Properties */
   private m_gridWidth: number;
   private m_gridHeight: number;
@@ -22,17 +19,18 @@ export class Grid {
   constructor(_width: number, _height: number);
   constructor(_width: number, _height: number, _densityOfObstacles: number);
   constructor(_matrix: number[][]);
-  constructor(_widthOrMatrix: any, _height?: number, _densityOfObstacles?: number) {
-
+  constructor(
+    _widthOrMatrix: any,
+    _height?: number,
+    _densityOfObstacles?: number
+  ) {
     /* Set the general properties */
-    if (typeof _widthOrMatrix === "number") {
+    if (typeof _widthOrMatrix === 'number') {
       this.m_gridWidth = _widthOrMatrix;
       this.m_gridHeight = _height;
       this.m_totalFields = this.m_gridWidth * this.m_gridHeight;
       this.m_matrix = undefined;
-    }
-
-    else {
+    } else {
       this.m_gridWidth = _widthOrMatrix[0].length;
       this.m_gridHeight = _widthOrMatrix.length;
       this.m_totalFields = this.m_gridWidth * this.m_gridHeight;
@@ -40,8 +38,12 @@ export class Grid {
     }
 
     /* Create and generate the matrix */
-    this.m_grid = this.buildGridWithNodes(this.m_matrix, this.m_gridWidth, this.m_gridHeight, _densityOfObstacles);
-
+    this.m_grid = this.buildGridWithNodes(
+      this.m_matrix,
+      this.m_gridWidth,
+      this.m_gridHeight,
+      _densityOfObstacles
+    );
   }
 
   /**
@@ -51,8 +53,12 @@ export class Grid {
    * @param  {number}     _height [ the height of the matrix ]
    * @return {Node[][]}           [ the grid with its nodes ]
    */
-  private buildGridWithNodes(_matrix: number[][], _width: number, _height: number, _densityOfObstacles?: number): Node[][] {
-
+  private buildGridWithNodes(
+    _matrix: number[][],
+    _width: number,
+    _height: number,
+    _densityOfObstacles?: number
+  ): Node[][] {
     /* Local variables */
     let matrix: Node[][] = [];
     let id: number = 0;
@@ -61,7 +67,6 @@ export class Grid {
     for (let y = 0; y < _height; y++) {
       matrix[y] = [];
       for (let x = 0; x < _width; x++) {
-
         matrix[y][x] = new Node({
           id: id,
           xPos: x,
@@ -69,7 +74,6 @@ export class Grid {
         });
 
         id++;
-
       }
     }
 
@@ -79,19 +83,14 @@ export class Grid {
      * We do not have to load up more informations.
      */
     if (_matrix === undefined) {
-
       for (let y = 1; y < _height - 1; y++) {
         for (let x = 1; x < _width - 1; x++) {
-
-        let randNumber = Math.floor(Math.random() * 10) + 1;
-          if (randNumber > (10 - _densityOfObstacles)) {
+          let randNumber = Math.floor(Math.random() * 10) + 1;
+          if (randNumber > 10 - _densityOfObstacles) {
             matrix[y][x].setIsWalkable(false);
-          }
-
-          else {
+          } else {
             matrix[y][x].setIsWalkable(true);
           }
-
         }
       }
 
@@ -102,22 +101,17 @@ export class Grid {
      * In case we have a matrix loaded.
      * Load up the informations of the matrix.
      */
-     for (let y = 0; y < _height; y++) {
-       for (let x = 0; x < _width; x++) {
-
-         if (_matrix[y][x]) {
-           matrix[y][x].setIsWalkable(false);
-         }
-
-         else {
-           matrix[y][x].setIsWalkable(true);
-         }
-
-       }
-     }
+    for (let y = 0; y < _height; y++) {
+      for (let x = 0; x < _width; x++) {
+        if (_matrix[y][x]) {
+          matrix[y][x].setIsWalkable(false);
+        } else {
+          matrix[y][x].setIsWalkable(true);
+        }
+      }
+    }
 
     return matrix;
-
   }
 
   /**
@@ -147,7 +141,9 @@ export class Grid {
    * @return {boolean}    [ on the grid (true) or not on the grid (false) ]
    */
   private isOnTheGrid(_x: number, _y: number): boolean {
-    return (_x >= 0 && _x < this.m_gridWidth) && (_y >= 0 && _y < this.m_gridHeight);
+    return (
+      _x >= 0 && _x < this.m_gridWidth && (_y >= 0 && _y < this.m_gridHeight)
+    );
   }
 
   /**
@@ -157,68 +153,60 @@ export class Grid {
    * @param  {boolean} _diagnonalMovementAllowed [ is diagnonal movement allowed? ]
    * @return {Node[]}                            [ the surround nodes ]
    */
-  public getSurroundingNodes(_currentXPos: number, _currentYPos: number, _diagnonalMovementAllowed: boolean): Node[] {
-
+  public getSurroundingNodes(
+    _currentXPos: number,
+    _currentYPos: number,
+    _diagnonalMovementAllowed: boolean
+  ): Node[] {
     /* Local variables */
     let surroundingNodes: Node[] = [];
 
-
-    for (var y = (_currentYPos - 1); y < (_currentYPos + 2); y++) {
-      for (var x = (_currentXPos - 1); x < (_currentXPos + 2); x++) {
-
+    for (var y = _currentYPos - 1; y < _currentYPos + 2; y++) {
+      for (var x = _currentXPos - 1; x < _currentXPos + 2; x++) {
         if (this.isOnTheGrid(x, y)) {
-
           if (this.isWalkableAt(x, y)) {
-
             if (_diagnonalMovementAllowed) {
               surroundingNodes.push(this.getNodeAt(x, y));
-            }
-
-            else {
+            } else {
               if (x == _currentXPos || y == _currentYPos) {
                 surroundingNodes.push(this.getNodeAt(x, y));
               }
             }
-
-          }
-
-          else {
+          } else {
             continue;
           }
-
-        }
-
-        else {
+        } else {
           continue;
         }
-
       }
     }
 
-
-
-
     return surroundingNodes;
-
   }
 
   /**
    * Get the Grid
    * @return {Node[][]} [ the generated grid ]
    */
-  public getGrid(): Node[][] { return this.m_grid; }
+  public getGrid(): Node[][] {
+    return this.m_grid;
+  }
 
   /**
    * Get the grid width
    * @return {number} [ width ]
    */
-  public getGridWidth(): number { return this.m_gridWidth; }
+  public getGridWidth(): number {
+    return this.m_gridWidth;
+  }
 
   /**
    * Get the grid height
    * @return {number} [ height ]
    */
-  public getGridHeight(): number { return this.m_gridHeight; }
+  public getGridHeight(): number {
+    return this.m_gridHeight;
+  }
 
   /**
    * Clean the grid
@@ -232,5 +220,4 @@ export class Grid {
       }
     }
   }
-
 }

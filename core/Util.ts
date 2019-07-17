@@ -1,11 +1,10 @@
 /**
-* @author       Eric Kuhn <digit.sensitivee@gmail.com>
-* @copyright    2017 Eric Kuhn
-* @license      {@link https://opensource.org/licenses/MIT|MIT License}
-*/
+ * @author       Eric Kuhn <digit.sensitivee@gmail.com>
+ * @copyright    2017 Eric Kuhn
+ * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ */
 
-
-  /**
+/**
  * Backtrace according to the parent records and return the path.
  * (including both start and end nodes)
  * @param  {Node[]} _node [ the goal node ]
