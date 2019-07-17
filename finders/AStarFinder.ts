@@ -1,7 +1,8 @@
 /**
- * @author       Eric Kuhn <digit.sensitivee@gmail.com>
- * @copyright    2017 Eric Kuhn
- * @license      {@link https://opensource.org/licenses/MIT|MIT License}
+ * @desc AStarFinder class
+ * @author Digitsensitive <digit.sensitivee@gmail.com>
+ * @copyright 2017-2019 Digitsensitive
+ * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 import * as _ from 'lodash';

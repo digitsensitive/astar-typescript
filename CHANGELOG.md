@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - Format all *.ts files with [Prettier](https://github.com/prettier/prettier)
+- Edit top comments in all *.ts files
 
 ### Fixed
 - (...)
