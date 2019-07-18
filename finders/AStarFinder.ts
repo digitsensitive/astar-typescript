@@ -13,18 +13,15 @@ import { getManhattenDistance } from '../core/Heuristic';
 import { backtrace } from '../core/Util';
 
 export class AStarFinder {
-  /* Grid and grid relevant data */
-  private m_grid: Grid;
-  private m_mapWidth: number;
-  private m_mapHeight: number;
-  private m_totalFields: number;
+  // Grid and grid relevant data
+  private grid: Grid;
 
-  /* AStar-Finder Lists */
-  private m_openList: Node[];
+  // AStar-Finder Lists */
+  private openList: Node[];
   private m_closedList: Node[];
   private m_pathwayList: Node[];
 
-  /* Pathway variables */
+  // Pathway variables */
   private m_diagonalAllowed: boolean;
   private m_heuristic: number;
   private m_movementCostNotDiagonal: number;
@@ -32,18 +29,15 @@ export class AStarFinder {
   private m_fieldWithLowestFCost: number[];
 
   public getMapArray(): Node[][] {
-    return this.m_grid.getGrid();
+    return this.grid.getGrid();
   }
 
-  constructor(_grid, _diagonalAllowed?: boolean) {
+  constructor(grid, _diagonalAllowed?: boolean) {
     /* Get grid with grid relevant data */
-    this.m_grid = _grid;
-    this.m_mapWidth = _grid.getGridWidth();
-    this.m_mapHeight = _grid.getGridHeight();
-    this.m_totalFields = this.m_mapWidth * this.m_mapHeight;
+    this.grid = grid;
 
     /* Init AStar-Finder Lists */
-    this.m_openList = [];
+    this.openList = [];
     this.m_closedList = [];
     this.m_pathwayList = [];
 
@@ -60,86 +54,78 @@ export class AStarFinder {
   }
 
   public findPath(startPosition: number[], endPosition: number[]): number[][] {
-    let _startX = startPosition[0];
-    let _startY = startPosition[1];
-    let _endX = endPosition[0];
-    let _endY = endPosition[1];
+    let startX = startPosition[0];
+    let startY = startPosition[1];
+    let endX = endPosition[0];
+    let endY = endPosition[1];
 
     let neighbors: Node[] = [];
     let nodePositionWithLowestFValue: number[] = [];
 
-    let startNode = this.m_grid.getNodeAt(_startX, _startY);
-    let endNode = this.m_grid.getNodeAt(_endX, _endY);
+    let startNode = this.grid.getNodeAt(startX, startY);
+    let endNode = this.grid.getNodeAt(endX, endY);
     let currentNode: Node = startNode;
     let abs = Math.abs;
 
-    /* START NODE */
-    /* Set FGH-Value to zero */
-    startNode.setGValue(0);
-    startNode.setHValue(0);
-    startNode.setFValue();
-
-    /* Push start node into open list */
-    startNode.setIsOnOpenList(true);
-    this.m_openList.push(startNode);
-
-    /* Break if start and/or goal position is/are not walkable */
+    // Break if start and/or end position is/are not walkable
     if (
-      !this.m_grid.isWalkableAt(_endX, _endY) ||
-      !this.m_grid.isWalkableAt(_startX, _startY)
+      !this.grid.isWalkableAt(endX, endY) ||
+      !this.grid.isWalkableAt(startX, startY)
     ) {
-      console.log(
-        'ERROR: Path could not be created. Start and/or Goal position is not walkable. '
+      throw new Error(
+        'Path could not be created because the start and/or end position is/are not walkable.'
       );
       return [];
     }
 
-    for (let y: number = 0; y < this.m_mapHeight; y++) {
-      for (let x: number = 0; x < this.m_mapWidth; x++) {
-        /* If NOT walkable */
-        if (!this.m_grid.isWalkableAt(x, y)) {
-          /* Set FGH-Values to zero */
-          this.m_grid.getNodeAt(x, y).setGValue(0);
-          this.m_grid.getNodeAt(x, y).setHValue(0);
-          this.m_grid.getNodeAt(x, y).setFValue();
+    // Set FGH values from start node to zero
+    startNode.setGValue(0);
+    startNode.setHValue(0);
+    startNode.setFValue();
 
-          /* Put on closed list */
-          this.m_grid.getNodeAt(x, y).setIsOnClosedList(true);
-          this.m_closedList.push(this.m_grid.getNodeAt(x, y));
+    // Push start node into open list
+    startNode.setIsOnOpenList(true);
+    this.openList.push(startNode);
+
+    // Loop through the grid, set the FGH values of non walkable nodes to zero
+    // and push them on the closed list
+    for (let y = 0; y < this.grid.height; y++) {
+      for (let x = 0; x < this.grid.width; x++) {
+        // If not walkable
+        if (!this.grid.isWalkableAt(x, y)) {
+          // Set FGH values to zero
+          this.grid.getNodeAt(x, y).setGValue(0);
+          this.grid.getNodeAt(x, y).setHValue(0);
+          this.grid.getNodeAt(x, y).setFValue();
+
+          // Put on closed list
+          this.grid.getNodeAt(x, y).setIsOnClosedList(true);
+          this.m_closedList.push(this.grid.getNodeAt(x, y));
         }
       }
     }
 
-    while (!_.isEmpty(this.m_openList)) {
-      /* get node with lowest f value */
-      nodePositionWithLowestFValue = [
-        _.minBy(this.m_openList, function(o) {
-          return o.getFValue();
-        }).getPositionX(),
-        _.minBy(this.m_openList, function(o) {
-          return o.getFValue();
-        }).getPositionY()
-      ];
-      currentNode = this.m_grid.getNodeAt(
-        nodePositionWithLowestFValue[0],
-        nodePositionWithLowestFValue[1]
-      );
+    // As long the open list is not empty, continue searching a path
+    while (this.openList) {
+      // Get node with lowest f value
+      let currentNode = _.minBy(this.openList, function(o) {
+        return o.getFValue();
+      });
 
-      /* Remove new field from open list and put into closed list */
+      // Remove new field from open list and put into closed list
       currentNode.setIsOnOpenList(false);
       currentNode.setIsOnClosedList(true);
-
-      _.remove(this.m_openList, currentNode);
+      _.remove(this.openList, currentNode);
       this.m_closedList.push(currentNode);
 
-      /* end of path is reached */
+      // End of path is reached
       if (currentNode === endNode) {
         console.log('Path created. ');
         return backtrace(endNode);
       }
 
-      /* get neighbors */
-      neighbors = this.m_grid.getSurroundingNodes(
+      // Get neighbors
+      let neighbors = this.grid.getSurroundingNodes(
         currentNode.getPositionX(),
         currentNode.getPositionY(),
         this.m_diagonalAllowed
@@ -148,7 +134,7 @@ export class AStarFinder {
       for (let i in neighbors) {
         let neightbor = neighbors[i];
 
-        /* continue if node on closed list */
+        // Continue if node on closed list
         if (neightbor.getIsOnClosedList()) {
           continue;
         }
@@ -159,7 +145,7 @@ export class AStarFinder {
         let xEndPos = endNode.getPositionX();
         let yEndPos = endNode.getPositionY();
 
-        /* calculate the g score of the neightbor */
+        // Calculate the G value of the neightbor
         let nextGValue =
           currentNode.getGValue() +
           (xPos - currentNode.getPositionX() === 0 ||
@@ -183,7 +169,7 @@ export class AStarFinder {
 
           if (!neightbor.getIsOnOpenList()) {
             neightbor.setIsOnOpenList(true);
-            this.m_openList.push(neightbor);
+            this.openList.push(neightbor);
           } else {
             /* okay this is a better way, so change the parent */
             neightbor.setParent(currentNode);

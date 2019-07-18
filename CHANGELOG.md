@@ -5,14 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [1.0.0] - 2019-XX-XX
 ### Added
-- ...
+- Example folder with an integration of this library into [Phaser 3](https://phaser.io/phaser3)
+- Separate interfaces into own file `astar-inferfaces.ts`
 
 ### Changed
-- ...
-
-### Fixed
-- ...
-
+- New scripts in the `package.json` file
+- Update `.gitignore` with `example` and `yarn.lock`
+- Multiple optimizations in `Grid.ts` and `AStarFinder.ts`
 
 ## [0.0.5] - 2019-07-17
 ### Added

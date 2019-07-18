@@ -6,69 +6,59 @@
  */
 
 import { Node } from './Node';
+import { IGridConstructor } from '../interfaces/astar-interfaces';
 
 export class Grid {
-  /*  General Properties */
-  private m_gridWidth: number;
-  private m_gridHeight: number;
-  private m_totalFields: number;
-  private m_matrix: number[][];
+  // General properties
+  readonly width: number;
+  readonly height: number;
+  readonly numberOfFields: number;
 
-  /* The node grid */
-  private m_grid: Node[][];
+  // The node grid
+  private grid: Node[][];
 
-  constructor(_width: number, _height: number);
-  constructor(_width: number, _height: number, _densityOfObstacles: number);
-  constructor(_matrix: number[][]);
-  constructor(
-    _widthOrMatrix: any,
-    _height?: number,
-    _densityOfObstacles?: number
-  ) {
-    /* Set the general properties */
-    if (typeof _widthOrMatrix === 'number') {
-      this.m_gridWidth = _widthOrMatrix;
-      this.m_gridHeight = _height;
-      this.m_totalFields = this.m_gridWidth * this.m_gridHeight;
-      this.m_matrix = undefined;
-    } else {
-      this.m_gridWidth = _widthOrMatrix[0].length;
-      this.m_gridHeight = _widthOrMatrix.length;
-      this.m_totalFields = this.m_gridWidth * this.m_gridHeight;
-      this.m_matrix = _widthOrMatrix;
+  constructor(aParams: IGridConstructor) {
+    // Set the general properties
+    if (aParams.width && aParams.height) {
+      this.width = aParams.width;
+      this.height = aParams.height;
+      this.numberOfFields = this.width * this.height;
+    } else if (aParams.matrix) {
+      this.width = aParams.matrix[0].length;
+      this.height = aParams.matrix.length;
+      this.numberOfFields = this.width * this.height;
     }
 
-    /* Create and generate the matrix */
-    this.m_grid = this.buildGridWithNodes(
-      this.m_matrix,
-      this.m_gridWidth,
-      this.m_gridHeight,
-      _densityOfObstacles
+    // Create and generate the matrix
+    this.grid = this.buildGridWithNodes(
+      aParams.matrix || undefined,
+      this.width,
+      this.height,
+      aParams.densityOfObstacles || 0
     );
   }
 
   /**
-   * Builds the grid with the nodes and return it.
-   * @param  {number[][]} _matrix [ 0 and 1: 0 = walkable; 1 = not walkable ]
-   * @param  {number}     _width  [ the width of the matrix ]
-   * @param  {number}     _height [ the height of the matrix ]
-   * @return {Node[][]}           [ the grid with its nodes ]
+   * Build grid, fill it with nodes and return it.
+   * @param matrix [ 0 or 1: 0 = walkable; 1 = not walkable ]
+   * @param width [grid width]
+   * @param height [grid height]
+   * @param densityOfObstacles [density of non walkable fields]
    */
   private buildGridWithNodes(
-    _matrix: number[][],
-    _width: number,
-    _height: number,
-    _densityOfObstacles?: number
+    matrix: number[][],
+    width: number,
+    height: number,
+    densityOfObstacles?: number
   ): Node[][] {
-    /* Local variables */
-    let matrix: Node[][] = [];
+    let newGrid: Node[][] = [];
     let id: number = 0;
 
-    /* Generate the matrix */
-    for (let y = 0; y < _height; y++) {
-      matrix[y] = [];
-      for (let x = 0; x < _width; x++) {
-        matrix[y][x] = new Node({
+    // Generate an empty matrix
+    for (let y = 0; y < height; y++) {
+      newGrid[y] = [];
+      for (let x = 0; x < width; x++) {
+        newGrid[y][x] = new Node({
           id: id,
           xPos: x,
           yPos: y
@@ -79,72 +69,66 @@ export class Grid {
     }
 
     /**
-     * In case we do not have a matrix loaded.
-     * Return the matrix now.
-     * We do not have to load up more informations.
+     * If we have not loaded a predefined matrix,
+     * loop through our grid and set random obstacles.
      */
-    if (_matrix === undefined) {
-      for (let y = 1; y < _height - 1; y++) {
-        for (let x = 1; x < _width - 1; x++) {
-          let randNumber = Math.floor(Math.random() * 10) + 1;
-          if (randNumber > 10 - _densityOfObstacles) {
-            matrix[y][x].setIsWalkable(false);
+    if (matrix === undefined) {
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          let rndNumber = Math.floor(Math.random() * 10) + 1;
+          if (rndNumber > 10 - densityOfObstacles) {
+            newGrid[y][x].setIsWalkable(false);
           } else {
-            matrix[y][x].setIsWalkable(true);
+            newGrid[y][x].setIsWalkable(true);
           }
         }
       }
 
-      return matrix;
+      return newGrid;
     }
 
     /**
      * In case we have a matrix loaded.
      * Load up the informations of the matrix.
      */
-    for (let y = 0; y < _height; y++) {
-      for (let x = 0; x < _width; x++) {
-        if (_matrix[y][x]) {
-          matrix[y][x].setIsWalkable(false);
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        if (matrix[y][x]) {
+          newGrid[y][x].setIsWalkable(false);
         } else {
-          matrix[y][x].setIsWalkable(true);
+          newGrid[y][x].setIsWalkable(true);
         }
       }
     }
 
-    return matrix;
+    return newGrid;
   }
 
   /**
    * Return a specific node.
-   * @param  {number} _x [ the x-position on the grid ]
-   * @param  {number} _y [ the y-position on the grid ]
-   * @return {Node}      [ the node ]
+   * @param x [x-position on the grid]
+   * @param y [y-position on the grid]
    */
-  public getNodeAt(_x: number, _y: number): Node {
-    return this.m_grid[_y][_x];
+  public getNodeAt(x: number, y: number): Node {
+    return this.grid[y][x];
   }
 
   /**
    * Check if specific node walkable.
-   * @param  {number} _x [ the x-position on the grid ]
-   * @param  {number} _y [ the y-position on the grid ]
-   * @return {boolean}   [ walkable (true) or not walkable (false) ]
+   * @param x [x-position on the grid]
+   * @param y [y-position on the grid]
    */
-  public isWalkableAt(_x: number, _y: number): boolean {
-    return this.m_grid[_y][_x].getIsWalkable();
+  public isWalkableAt(x: number, y: number): boolean {
+    return this.grid[y][x].getIsWalkable();
   }
 
   /**
    * Check if specific node is on the grid.
-   * @param  {number}  _x [ the x-position on the grid ]
-   * @param  {number}  _y [ the y-position on the grid ]
-   * @return {boolean}    [ on the grid (true) or not on the grid (false) ]
+   * @param x [x-position on the grid]
+   * @param y [y-position on the grid]
    */
-  private isOnTheGrid(_x: number, _y: number): boolean {
-    return (
-      _x >= 0 && _x < this.m_gridWidth && (_y >= 0 && _y < this.m_gridHeight)
-    );
+  private isOnTheGrid(x: number, y: number): boolean {
+    return x >= 0 && x < this.width && y >= 0 && y < this.height;
   }
 
   /**
@@ -190,34 +174,18 @@ export class Grid {
    * @return {Node[][]} [ the generated grid ]
    */
   public getGrid(): Node[][] {
-    return this.m_grid;
-  }
-
-  /**
-   * Get the grid width
-   * @return {number} [ width ]
-   */
-  public getGridWidth(): number {
-    return this.m_gridWidth;
-  }
-
-  /**
-   * Get the grid height
-   * @return {number} [ height ]
-   */
-  public getGridHeight(): number {
-    return this.m_gridHeight;
+    return this.grid;
   }
 
   /**
    * Clean the grid
    */
   public cleanGrid(): void {
-    for (let y = 0; y < this.m_grid.length; y++) {
-      for (let x = 0; x < this.m_grid[y].length; x++) {
-        this.m_grid[y][x].setIsOnClosedList(false);
-        this.m_grid[y][x].setIsOnOpenList(false);
-        this.m_grid[y][x].setParent(undefined);
+    for (let y = 0; y < this.grid.length; y++) {
+      for (let x = 0; x < this.grid[y].length; x++) {
+        this.grid[y][x].setIsOnClosedList(false);
+        this.grid[y][x].setIsOnOpenList(false);
+        this.grid[y][x].setParent(undefined);
       }
     }
   }

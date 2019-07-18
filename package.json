@@ -1,6 +1,6 @@
 {
   "name": "astar-typescript",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "A*(a-star) pathfinding in TypeScript",
   "keywords": [
     "AStar",
@@ -15,7 +15,10 @@
   "author": "Digitsensitive <digit.sensitivee@gmail.com>",
   "main": "main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-dependencies": "yarn run install-core-dependencies && yarn run install-example-dependencies",
+    "install-example-dependencies": "cd example && yarn install",
+    "install-core-dependencies": "yarn install",
+    "example": "cd example && webpack --mode development && webpack-dev-server --mode development"
   },
   "dependencies": {
     "lodash": "4.17.14"
