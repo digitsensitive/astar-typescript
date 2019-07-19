@@ -16,16 +16,16 @@ export class AStarFinder {
   // Grid and grid relevant data
   private grid: Grid;
 
-  // AStar-Finder Lists */
+  // AStar-Finder Lists
   private openList: Node[];
-  private m_closedList: Node[];
+  private closedList: Node[];
   private m_pathwayList: Node[];
 
-  // Pathway variables */
+  // Pathway variables
   private m_diagonalAllowed: boolean;
   private m_heuristic: number;
-  private m_movementCostNotDiagonal: number;
-  private m_movementCostDiagonal: number;
+  private movementCostNotDiagonal: number;
+  private movementCostDiagonal: number;
   private m_fieldWithLowestFCost: number[];
 
   public getMapArray(): Node[][] {
@@ -38,7 +38,7 @@ export class AStarFinder {
 
     /* Init AStar-Finder Lists */
     this.openList = [];
-    this.m_closedList = [];
+    this.closedList = [];
     this.m_pathwayList = [];
 
     /* Init pathway variables */
@@ -48,8 +48,8 @@ export class AStarFinder {
       this.m_diagonalAllowed = true;
     }
     this.m_heuristic = 1;
-    this.m_movementCostNotDiagonal = 10;
-    this.m_movementCostDiagonal = 14;
+    this.movementCostNotDiagonal = 10;
+    this.movementCostDiagonal = 14;
     this.m_fieldWithLowestFCost = [];
   }
 
@@ -100,7 +100,7 @@ export class AStarFinder {
 
           // Put on closed list
           this.grid.getNodeAt(x, y).setIsOnClosedList(true);
-          this.m_closedList.push(this.grid.getNodeAt(x, y));
+          this.closedList.push(this.grid.getNodeAt(x, y));
         }
       }
     }
@@ -116,7 +116,7 @@ export class AStarFinder {
       currentNode.setIsOnOpenList(false);
       currentNode.setIsOnClosedList(true);
       _.remove(this.openList, currentNode);
-      this.m_closedList.push(currentNode);
+      this.closedList.push(currentNode);
 
       // End of path is reached
       if (currentNode === endNode) {
@@ -145,24 +145,23 @@ export class AStarFinder {
         let xEndPos = endNode.getPositionX();
         let yEndPos = endNode.getPositionY();
 
-        // Calculate the G value of the neightbor
+        // Calculate the g value of the neightbor
         let nextGValue =
           currentNode.getGValue() +
           (xPos - currentNode.getPositionX() === 0 ||
           yPos - currentNode.getPositionY() === 0
-            ? this.m_movementCostNotDiagonal
-            : this.m_movementCostDiagonal);
+            ? this.movementCostNotDiagonal
+            : this.movementCostDiagonal);
 
-        /* is the neighbor not on open list OR */
-        /* can it be reached with lower g value from current position */
+        // Is the neighbor not on open list OR
+        // can it be reached with lower g value from current position
         if (
           !neightbor.getIsOnOpenList() ||
           nextGValue < neightbor.getGValue()
         ) {
           neightbor.setGValue(nextGValue);
           neightbor.setHValue(
-            getManhattenDistance(abs(xPos - xEndPos), abs(yPos - yEndPos)) *
-              this.m_movementCostNotDiagonal
+            getManhattenDistance(abs(xPos - xEndPos), abs(yPos - yEndPos))
           );
           neightbor.setFValue();
           neightbor.setParent(currentNode);

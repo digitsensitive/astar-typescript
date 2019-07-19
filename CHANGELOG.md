@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - New scripts in the `package.json` file
-- Update `.gitignore` with `example` and `yarn.lock`
+- Update `.gitignore` with `yarn.lock`
 - Multiple optimizations in `Grid.ts` and `AStarFinder.ts`
 
 ## [0.0.5] - 2019-07-17

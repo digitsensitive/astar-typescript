@@ -132,28 +132,26 @@ export class Grid {
   }
 
   /**
-   * Get surround nodes.
-   * @param  {number}  _currentXPos              [ the x-position on the grid ]
-   * @param  {number}  _currentYPos              [ the y-position on the grid ]
-   * @param  {boolean} _diagnonalMovementAllowed [ is diagnonal movement allowed? ]
-   * @return {Node[]}                            [ the surround nodes ]
+   * Get surrounding nodes.
+   * @param currentXPos [x-position on the grid]
+   * @param currentYPos [y-position on the grid]
+   * @param diagnonalMovementAllowed [is diagnonal movement allowed?]
    */
   public getSurroundingNodes(
-    _currentXPos: number,
-    _currentYPos: number,
-    _diagnonalMovementAllowed: boolean
+    currentXPos: number,
+    currentYPos: number,
+    diagnonalMovementAllowed: boolean
   ): Node[] {
-    /* Local variables */
     let surroundingNodes: Node[] = [];
 
-    for (var y = _currentYPos - 1; y < _currentYPos + 2; y++) {
-      for (var x = _currentXPos - 1; x < _currentXPos + 2; x++) {
+    for (var y = currentYPos - 1; y <= currentYPos + 1; y++) {
+      for (var x = currentXPos - 1; x <= currentXPos + 1; x++) {
         if (this.isOnTheGrid(x, y)) {
           if (this.isWalkableAt(x, y)) {
-            if (_diagnonalMovementAllowed) {
+            if (diagnonalMovementAllowed) {
               surroundingNodes.push(this.getNodeAt(x, y));
             } else {
-              if (x == _currentXPos || y == _currentYPos) {
+              if (x == currentXPos || y == currentYPos) {
                 surroundingNodes.push(this.getNodeAt(x, y));
               }
             }

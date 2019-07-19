@@ -23,7 +23,6 @@
   "dependencies": {
     "lodash": "4.17.14"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/digitsensitive/astar-typescript.git"
