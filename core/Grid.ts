@@ -5,7 +5,7 @@
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Node } from './Node';
+import { Node } from './node';
 import { IGridConstructor } from '../interfaces/astar-interfaces';
 
 export class Grid {

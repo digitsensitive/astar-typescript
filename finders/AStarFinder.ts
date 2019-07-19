@@ -7,10 +7,10 @@
 
 import * as _ from 'lodash';
 
-import { Node } from '../core/Node';
-import { Grid } from '../core/Grid';
-import { getManhattenDistance } from '../core/Heuristic';
-import { backtrace } from '../core/Util';
+import { Node } from '../core/node';
+import { Grid } from '../core/grid';
+import { getManhattenDistance } from '../core/heuristic';
+import { backtrace } from '../core/util';
 
 export class AStarFinder {
   // Grid and grid relevant data
