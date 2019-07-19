@@ -126,8 +126,8 @@ export class AStarFinder {
 
       // Get neighbors
       let neighbors = this.grid.getSurroundingNodes(
-        currentNode.getPositionX(),
-        currentNode.getPositionY(),
+        currentNode.posX,
+        currentNode.posY,
         this.m_diagonalAllowed
       );
 
@@ -139,17 +139,16 @@ export class AStarFinder {
           continue;
         }
 
-        let xPos = neightbor.getPositionX();
-        let yPos = neightbor.getPositionY();
+        let xPos = neightbor.posX;
+        let yPos = neightbor.posY;
 
-        let xEndPos = endNode.getPositionX();
-        let yEndPos = endNode.getPositionY();
+        let xEndPos = endNode.posX;
+        let yEndPos = endNode.posY;
 
         // Calculate the g value of the neightbor
         let nextGValue =
           currentNode.getGValue() +
-          (xPos - currentNode.getPositionX() === 0 ||
-          yPos - currentNode.getPositionY() === 0
+          (xPos - currentNode.posX === 0 || yPos - currentNode.posY === 0
             ? this.movementCostNotDiagonal
             : this.movementCostDiagonal);
 

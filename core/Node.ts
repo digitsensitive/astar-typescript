@@ -1,106 +1,86 @@
 /**
- * @desc Node class
+ * @desc A basic node class for pathfinding.
  * @author Digitsensitive <digit.sensitivee@gmail.com>
  * @copyright 2017-2019 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-interface NodeConstructor {
-  id: number;
-  xPos: number;
-  yPos: number;
-  walkable?: boolean;
-}
+import { INodeConstructor } from '../interfaces/astar-interfaces';
 
-/**
- * The node class.
- * Each node has general properties like the id, the x and y position.
- * There are other more specific properties.
- * It is possible to define other properties as needed.
- */
 export class Node {
-  /*  General Properties */
-  private m_id: number;
-  private m_posX: number;
-  private m_posY: number;
+  //  General properties
+  readonly id: number;
+  readonly posX: number;
+  readonly posY: number;
 
-  /* Specific Properties */
-  private m_fValue: number;
-  private m_gValue: number;
-  private m_hValue: number;
-  private m_parent: Node;
-  private m_isOnClosedList: boolean;
-  private m_isOnOpenList: boolean;
-  private m_isWalkable: boolean;
+  // Specific properties
+  private fValue: number;
+  private gValue: number;
+  private hValue: number;
+  private parentNode: Node;
+  private isOnClosedList: boolean;
+  private isOnOpenList: boolean;
+  private isWalkable: boolean;
 
-  /* Getter functions */
-  public getId(): number {
-    return this.m_id;
+  constructor(aParams: INodeConstructor) {
+    // Set general properties
+    this.id = aParams.id;
+    this.posX = aParams.xPos;
+    this.posY = aParams.yPos;
+
+    // Set specific properties
+    this.hValue = 0;
+    this.gValue = 0;
+    this.fValue = 0;
+    this.parentNode = undefined;
+    this.isOnClosedList = false;
+    this.isOnOpenList = false;
+    this.isWalkable = aParams.walkable || true;
   }
-  public getPositionX(): number {
-    return this.m_posX;
-  }
-  public getPositionY(): number {
-    return this.m_posY;
-  }
+
+  // Getter functions
   public getFValue(): number {
-    return this.m_fValue;
+    return this.fValue;
   }
   public getGValue(): number {
-    return this.m_gValue;
+    return this.gValue;
   }
   public getHValue(): number {
-    return this.m_hValue;
+    return this.hValue;
   }
   public getParent(): Node {
-    return this.m_parent;
+    return this.parentNode;
   }
   public getIsOnClosedList(): boolean {
-    return this.m_isOnClosedList;
+    return this.isOnClosedList;
   }
   public getIsOnOpenList(): boolean {
-    return this.m_isOnOpenList;
+    return this.isOnOpenList;
   }
   public getIsWalkable(): boolean {
-    return this.m_isWalkable;
+    return this.isWalkable;
   }
 
-  /* Setter functions */
+  // Setter functions
   public setFValue(): void {
-    this.m_fValue = this.m_gValue + this.m_hValue;
+    this.fValue = this.gValue + this.hValue;
   }
   public setGValue(_gValue: number): void {
-    this.m_gValue = _gValue;
+    this.gValue = _gValue;
   }
   public setHValue(_hValue: number): void {
-    this.m_hValue = _hValue;
+    this.hValue = _hValue;
   }
   public setParent(_parent: Node): void {
-    this.m_parent = _parent;
+    this.parentNode = _parent;
   }
-  public setIsOnClosedList(_isOnClosedList: boolean): void {
-    this.m_isOnClosedList = _isOnClosedList;
+  public setIsOnClosedList(isOnClosedList: boolean): void {
+    this.isOnClosedList = isOnClosedList;
   }
-  public setIsOnOpenList(_isOnOpenList: boolean): void {
-    this.m_isOnOpenList = _isOnOpenList;
+  public setIsOnOpenList(isOnOpenList: boolean): void {
+    this.isOnOpenList = isOnOpenList;
   }
-  public setIsWalkable(_isWalkable: boolean): void {
-    this.m_isWalkable = _isWalkable;
-  }
-
-  constructor(aParams: NodeConstructor) {
-    /* Set the general properties */
-    this.m_id = aParams.id;
-    this.m_posX = aParams.xPos;
-    this.m_posY = aParams.yPos;
-
-    /* Set the specific properties */
-    this.m_hValue = 0;
-    this.m_gValue = 0;
-    this.m_fValue = 0;
-    this.m_parent = undefined;
-    this.m_isOnClosedList = false;
-    this.m_isOnOpenList = false;
-    this.m_isWalkable = aParams.walkable || true;
+  public setIsWalkable(isWalkable: boolean): void {
+    this.isWalkable = isWalkable;
   }
 }

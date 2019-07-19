@@ -110,11 +110,11 @@ export class MainScene extends Phaser.Scene {
       this.pathwayObjects.push(
         this.add
           .rectangle(
-            p[0] * this.tileSize,
-            p[1] * this.tileSize,
-            this.tileSize - 1,
-            this.tileSize - 1,
-            0xccb0b0,
+            p[0] * this.tileSize + 1,
+            p[1] * this.tileSize + 1,
+            this.tileSize - 2,
+            this.tileSize - 2,
+            0xf5c242,
             1
           )
           .setOrigin(0, 0)
@@ -124,21 +124,21 @@ export class MainScene extends Phaser.Scene {
     // create start and end object
     this.startObject = this.add
       .rectangle(
-        this.startPosition[0] * this.tileSize,
-        this.startPosition[1] * this.tileSize,
-        this.tileSize,
-        this.tileSize,
-        0xbd4143,
+        this.startPosition[0] * this.tileSize + 1,
+        this.startPosition[1] * this.tileSize + 1,
+        this.tileSize - 2,
+        this.tileSize - 2,
+        0xd9a011,
         1
       )
       .setOrigin(0, 0);
     this.endObject = this.add
       .rectangle(
-        this.endPosition[0] * this.tileSize,
-        this.endPosition[1] * this.tileSize,
-        this.tileSize,
-        this.tileSize,
-        0xbd4143,
+        this.endPosition[0] * this.tileSize + 1,
+        this.endPosition[1] * this.tileSize + 1,
+        this.tileSize - 2,
+        this.tileSize - 2,
+        0xd9a011,
         1
       )
       .setOrigin(0, 0);
