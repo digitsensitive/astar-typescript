@@ -55,7 +55,7 @@ export class MainScene extends Phaser.Scene {
       grid: {
         width: this.gridWidth,
         height: this.gridHeight,
-        densityOfObstacles: 2
+        densityOfObstacles: 1
       },
       weight: 1,
       heuristicFunction: 'Octile'
@@ -65,8 +65,9 @@ export class MainScene extends Phaser.Scene {
       grid: {
         width: this.gridWidth,
         height: this.gridHeight,
-        densityOfObstacles: 2
-      }
+        densityOfObstacles: 1
+      },
+      heuristicFunction: 'Octile'
     });
 
     this.pathwayAStar = this.aStarInstance.findPath(

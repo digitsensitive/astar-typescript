@@ -13,6 +13,7 @@ export interface IAStarFinderConstructor {
 export interface IDijkstrasFinderConstructor {
   grid: IGridConstructor;
   diagonalAllowed?: boolean;
+  heuristicFunction?: Heuristic;
   includeStartNode?: boolean;
   includeEndNode?: boolean;
 }
