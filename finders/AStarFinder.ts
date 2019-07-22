@@ -7,10 +7,12 @@
 
 import * as _ from 'lodash';
 
-import { Node } from '../core/node';
-import { Grid } from '../core/grid';
-import { getManhattenDistance } from '../core/heuristic';
 import { backtrace } from '../core/util';
+import { heuristicFunction } from '../core/heuristic';
+import { Grid } from '../core/grid';
+import { IAStarFinderConstructor } from '../interfaces/astar-interfaces';
+import { Node } from '../core/node';
+import { Heuristic } from '../types/astar-types';
 
 export class AStarFinder {
   // Grid and grid relevant data
@@ -22,35 +24,48 @@ export class AStarFinder {
   private m_pathwayList: Node[];
 
   // Pathway variables
-  private m_diagonalAllowed: boolean;
-  private m_heuristic: number;
+  private diagonalAllowed: boolean;
+  protected weight: number;
+  protected heuristicFunction: Heuristic;
   private movementCostNotDiagonal: number;
   private movementCostDiagonal: number;
   private m_fieldWithLowestFCost: number[];
+  private includeStartNode: boolean;
+  private includeEndNode: boolean;
 
   public getMapArray(): Node[][] {
     return this.grid.getGrid();
   }
 
-  constructor(grid, _diagonalAllowed?: boolean) {
-    /* Get grid with grid relevant data */
-    this.grid = grid;
+  constructor(aParams: IAStarFinderConstructor) {
+    // Get grid with grid relevant data
+    this.grid = new Grid({
+      width: aParams.grid.width,
+      height: aParams.grid.height,
+      matrix: aParams.grid.matrix || undefined,
+      densityOfObstacles: aParams.grid.densityOfObstacles || 0
+    });
 
-    /* Init AStar-Finder Lists */
+    // Init AStar-Finder Lists
     this.openList = [];
     this.closedList = [];
     this.m_pathwayList = [];
 
-    /* Init pathway variables */
-    if (_diagonalAllowed != null) {
-      this.m_diagonalAllowed = _diagonalAllowed;
-    } else {
-      this.m_diagonalAllowed = true;
-    }
-    this.m_heuristic = 1;
+    // Init pathway variables
+    this.diagonalAllowed =
+      aParams.diagonalAllowed !== undefined ? aParams.diagonalAllowed : true;
+    this.weight = aParams.weight || 1;
     this.movementCostNotDiagonal = 10;
     this.movementCostDiagonal = 14;
     this.m_fieldWithLowestFCost = [];
+    this.includeStartNode =
+      aParams.includeStartNode !== undefined ? aParams.includeStartNode : true;
+    this.includeEndNode =
+      aParams.includeEndNode !== undefined ? aParams.includeEndNode : true;
+    this.heuristicFunction =
+      aParams.heuristicFunction !== undefined
+        ? aParams.heuristicFunction
+        : 'Manhatten';
   }
 
   public findPath(startPosition: number[], endPosition: number[]): number[][] {
@@ -121,14 +136,14 @@ export class AStarFinder {
       // End of path is reached
       if (currentNode === endNode) {
         console.log('Path created. ');
-        return backtrace(endNode);
+        return backtrace(endNode, this.includeStartNode, this.includeEndNode);
       }
 
       // Get neighbors
       let neighbors = this.grid.getSurroundingNodes(
-        currentNode.posX,
-        currentNode.posY,
-        this.m_diagonalAllowed
+        currentNode.position.x,
+        currentNode.position.y,
+        this.diagonalAllowed
       );
 
       for (let i in neighbors) {
@@ -139,18 +154,16 @@ export class AStarFinder {
           continue;
         }
 
-        let xPos = neightbor.posX;
-        let yPos = neightbor.posY;
-
-        let xEndPos = endNode.posX;
-        let yEndPos = endNode.posY;
+        let startPos = neightbor.position;
+        let endPos = endNode.position;
 
         // Calculate the g value of the neightbor
         let nextGValue =
           currentNode.getGValue() +
-          (xPos - currentNode.posX === 0 || yPos - currentNode.posY === 0
-            ? this.movementCostNotDiagonal
-            : this.movementCostDiagonal);
+          (neightbor.position.x !== currentNode.posX ||
+          neightbor.position.y! == currentNode.posY
+            ? this.weight
+            : this.weight * 1.41421);
 
         // Is the neighbor not on open list OR
         // can it be reached with lower g value from current position
@@ -160,7 +173,12 @@ export class AStarFinder {
         ) {
           neightbor.setGValue(nextGValue);
           neightbor.setHValue(
-            getManhattenDistance(abs(xPos - xEndPos), abs(yPos - yEndPos))
+            heuristicFunction(
+              this.heuristicFunction,
+              neightbor.position,
+              endNode.position,
+              this.weight
+            )
           );
           neightbor.setFValue();
           neightbor.setParent(currentNode);

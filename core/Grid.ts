@@ -168,22 +168,22 @@ export class Grid {
   }
 
   /**
-   * Get the Grid
-   * @return {Node[][]} [ the generated grid ]
+   * Get the current grid
    */
   public getGrid(): Node[][] {
     return this.grid;
   }
 
   /**
-   * Clean the grid
+   * Reset the grid
    */
-  public cleanGrid(): void {
+  public resetGrid(): void {
     for (let y = 0; y < this.grid.length; y++) {
       for (let x = 0; x < this.grid[y].length; x++) {
         this.grid[y][x].setIsOnClosedList(false);
         this.grid[y][x].setIsOnOpenList(false);
         this.grid[y][x].setParent(undefined);
+        this.grid[y][x].resetFGHValues();
       }
     }
   }

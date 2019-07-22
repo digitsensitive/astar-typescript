@@ -14,18 +14,14 @@ import { Node } from './node';
  */
 export function backtrace(
   node: Node,
-  includeStartNode?: boolean,
-  includeEndNode?: boolean
+  includeStartNode: boolean,
+  includeEndNode: boolean
 ): number[][] {
-  // Init boolean to include starting and ending node
-  let iStartNode = includeStartNode || true;
-  let iEndNode = includeEndNode || true;
-
   // Init empty path
   let path: number[][] = [];
 
   let currentNode;
-  if (iEndNode) {
+  if (includeEndNode) {
     // Attach the end node to be the current node
     currentNode = node;
   } else {
@@ -34,13 +30,13 @@ export function backtrace(
 
   // Loop as long the current node has a parent
   while (currentNode.getParent()) {
-    path.push([currentNode.posX, currentNode.posY]);
+    path.push([currentNode.position.x, currentNode.position.y]);
     currentNode = currentNode.getParent();
   }
 
   // If true we will also include the starting node
-  if (iStartNode) {
-    path.push([currentNode.posX, currentNode.posY]);
+  if (includeStartNode) {
+    path.push([currentNode.position.x, currentNode.position.y]);
   }
 
   return path.reverse();

@@ -5,13 +5,12 @@
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { INodeConstructor } from '../interfaces/astar-interfaces';
+import { INodeConstructor, IPoint } from '../interfaces/astar-interfaces';
 
 export class Node {
   //  General properties
   readonly id: number;
-  readonly posX: number;
-  readonly posY: number;
+  readonly position: IPoint;
 
   // Specific properties
   private fValue: number;
@@ -25,8 +24,7 @@ export class Node {
   constructor(aParams: INodeConstructor) {
     // Set general properties
     this.id = aParams.id;
-    this.posX = aParams.xPos;
-    this.posY = aParams.yPos;
+    this.position = { x: aParams.xPos, y: aParams.yPos };
 
     // Set specific properties
     this.hValue = 0;
@@ -82,5 +80,11 @@ export class Node {
   }
   public setIsWalkable(isWalkable: boolean): void {
     this.isWalkable = isWalkable;
+  }
+
+  public resetFGHValues(): void {
+    this.fValue = 0;
+    this.gValue = 0;
+    this.hValue = 0;
   }
 }

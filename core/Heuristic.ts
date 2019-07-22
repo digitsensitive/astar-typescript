@@ -1,16 +1,68 @@
 /**
- * @desc Heuristic
+ * @desc Heuristic functions
+ * Resources:
+ * http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+ * https://en.wikipedia.org/wiki/Taxicab_geometry
+ * https://en.wikipedia.org/wiki/Euclidean_distance
+ * https://en.wikipedia.org/wiki/Chebyshev_distance
+ * http://www.gameaipro.com/GameAIPro/GameAIPro_Chapter17_Pathfinding_Architecture_Optimizations.pdf
+ * https://github.com/riscy/a_star_on_grids#heuristics
  * @author Digitsensitive <digit.sensitivee@gmail.com>
  * @copyright 2017-2019 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+import { Heuristic } from '../types/astar-types';
+
 /**
- * Calculate the manhatten distance.
- * @param  {number} _dx           [ Horizontal change ]
- * @param  {number} _dy           [ Vertical change ]
- * @return {number}               [ The calculated distance ]
+ * Calculate for two positions the heuristic function.
+ * @param heuristicFunction
+ * @param pos0
+ * @param pos1
+ * @param weight
  */
-export function getManhattenDistance(_dx: number, _dy: number): number {
-  return _dx + _dy;
+export function heuristicFunction(
+  heuristicFunction: Heuristic,
+  pos0,
+  pos1,
+  weight
+): number {
+  let dx = Math.abs(pos1.x - pos0.x);
+  let dy = Math.abs(pos1.y - pos0.y);
+
+  switch (heuristicFunction) {
+    case 'Manhatten':
+      /**
+       * Calculate the Manhatten distance.
+       * Generally: Overestimates distances because diagonal movement not taken into accout.
+       * Good for a 4-connected grid (diagonal movement not allowed)
+       */
+      return (dx + dy) * weight;
+    case 'Euclidean':
+      /**
+       * Calculate the Euclidean distance.
+       * Generally: Underestimates distances, assuming paths can have any angle.
+       * Can be used f.e. when units can move at any angle.
+       */
+      return Math.sqrt(dx * dx + dy * dy) * weight;
+    case 'Chebyshev':
+      /**
+       * Calculate the Chebyshev distance.
+       * Should be used when diagonal movement is allowed.
+       * D * (dx + dy) + (D2 - 2 * D) * Math.min(dx, dy)
+       * D = 1 and D2 = 1
+       * => (dx + dy) - Math.min(dx, dy)
+       * This is equivalent to Math.max(dx, dy)
+       */
+      return Math.max(dx, dy) * weight;
+    case 'Octile':
+      /**
+       * Calculate the Octile distance.
+       * Should be used on an 8-connected grid (diagonal movement allowed).
+       * D * (dx + dy) + (D2 - 2 * D) * Math.min(dx, dy)
+       * D = 1 and D2 = sqrt(2)
+       * => (dx + dy) - 0.58 * Math.min(dx, dy)
+       */
+      return (dx + dy - 0.58 * Math.min(dx, dy)) * weight;
+  }
 }

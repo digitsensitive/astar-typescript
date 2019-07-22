@@ -19,14 +19,17 @@ export class MainScene extends Phaser.Scene {
   // game objects
   private endObject: Phaser.GameObjects.Rectangle;
   private gridObject: Phaser.GameObjects.Grid;
-  private pathwayObjects: Phaser.GameObjects.Rectangle[];
+  private pathwayAStarObjects: Phaser.GameObjects.Rectangle[];
+  private pathwayDijkstrasObjects: Phaser.GameObjects.Rectangle[];
   private startObject: Phaser.GameObjects.Rectangle;
   private wallObjects: Phaser.GameObjects.Rectangle[];
 
   // a-star
   private aStarInstance: AStar.AStarFinder;
+  private dijkstrasInstance: AStar.DijkstrasFinder;
   private grid: AStar.Grid;
-  private pathway: number[][];
+  private pathwayAStar: number[][];
+  private pathwayDijkstras: number[][];
 
   constructor() {
     super({
@@ -48,16 +51,30 @@ export class MainScene extends Phaser.Scene {
       Phaser.Math.RND.between(0, this.gridHeight - 1)
     ];
 
-    // a-star
-    this.grid = new AStar.Grid({
-      width: this.gridWidth,
-      height: this.gridHeight,
-      densityOfObstacles: 2
+    this.aStarInstance = new AStar.AStarFinder({
+      grid: {
+        width: this.gridWidth,
+        height: this.gridHeight,
+        densityOfObstacles: 2
+      },
+      weight: 1,
+      heuristicFunction: 'Octile'
     });
-    let diagonalMovement = true;
-    this.aStarInstance = new AStar.AStarFinder(this.grid, diagonalMovement);
 
-    this.pathway = this.aStarInstance.findPath(
+    this.dijkstrasInstance = new AStar.DijkstrasFinder({
+      grid: {
+        width: this.gridWidth,
+        height: this.gridHeight,
+        densityOfObstacles: 2
+      }
+    });
+
+    this.pathwayAStar = this.aStarInstance.findPath(
+      this.startPosition,
+      this.endPosition
+    );
+
+    this.pathwayDijkstras = this.dijkstrasInstance.findPath(
       this.startPosition,
       this.endPosition
     );
@@ -104,10 +121,10 @@ export class MainScene extends Phaser.Scene {
       }
     }
 
-    // create the path
-    this.pathwayObjects = [];
-    for (let p of this.pathway) {
-      this.pathwayObjects.push(
+    // create the astar path
+    this.pathwayAStarObjects = [];
+    for (let p of this.pathwayAStar) {
+      this.pathwayAStarObjects.push(
         this.add
           .rectangle(
             p[0] * this.tileSize + 1,
@@ -120,6 +137,28 @@ export class MainScene extends Phaser.Scene {
           .setOrigin(0, 0)
       );
     }
+
+    // create the dijkstras path
+    this.pathwayDijkstrasObjects = [];
+    for (let p of this.pathwayDijkstras) {
+      this.pathwayDijkstrasObjects.push(
+        this.add
+          .rectangle(
+            p[0] * this.tileSize + 1,
+            p[1] * this.tileSize + 1,
+            this.tileSize - 2,
+            this.tileSize - 2,
+            0x54c1f0,
+            1
+          )
+          .setOrigin(0, 0)
+      );
+    }
+
+    console.log(
+      this.pathwayAStarObjects.length,
+      this.pathwayDijkstrasObjects.length
+    );
 
     // create start and end object
     this.startObject = this.add
