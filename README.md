@@ -5,7 +5,22 @@ AStar-Typescript
 
 #### The A* search algorithm library in TypeScript. ####
 
-# usage
+AStar-TypeScript is an A* pathfinding API written in TypeScript to use for your HTML5 games or other browser-based projects.
+
+This library was influenced and inspired by [@qioa - PathFinding.js](https://github.com/qiao/PathFinding.js) and [@redblobgames](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
+
+Buy me a coffee
+---------------
+
+Whether you use this project, have learned something from it, or just like it, please consider supporting it by buying me a coffee.
+
+<div align="center">
+<a href="https://www.buymeacoffee.com/JZDVjsT26" target="blank">
+<img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important; width: auto !important;"></a>
+</div>
+
+Usage
+-----
 
 ## import package
 
@@ -64,6 +79,7 @@ this.m_pathway = this.m_aStarInstance.findPath(startPos, goalPos);
 
 ```
 
-## license
+license
+---------------
 
 MIT
