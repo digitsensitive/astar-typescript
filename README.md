@@ -1,10 +1,9 @@
-# A* search algorithm
+AStar-Typescript
+==============
+[![GitHub Stars](https://img.shields.io/david/digitsensitive/astar-typescript.svg)](https://david-dm.org/digitsensitive/astar-typescript)
+[![GitHub Stars](https://img.shields.io/github/stars/digitsensitive/astar-typescript.svg)](https://github.com/digitsensitive/astar-typescript/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/digitsensitive/astar-typescript.svg)](https://github.com/digitsensitive/astar-typescript/network/members) [![GitHub Issues](https://img.shields.io/github/issues/digitsensitive/astar-typescript.svg)](https://github.com/digitsensitive/astar-typescript/issues) [![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/digitsensitive/astar-typescript)
 
-In computer science, A* (pronounced as "A star") is a computer algorithm that is widely used in pathfinding and graph traversal, the process of plotting an efficiently directed path between multiple points, called nodes. It enjoys widespread use due to its performance and accuracy (from Wikipedia).
-
-# motivation
-
-This library has been greatly influenced by PathFinding.js from qiao. My motivation was to write a comprehensive A* search algorithm in TypeScript.
+#### The A* search algorithm library in TypeScript. ####
 
 # usage
 
