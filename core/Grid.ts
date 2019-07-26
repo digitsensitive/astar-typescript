@@ -6,7 +6,7 @@
  */
 
 import { Node } from './node';
-import { IGridConstructor } from '../interfaces/astar-interfaces';
+import { IGridConstructor, IPoint } from '../interfaces/astar-interfaces';
 
 export class Grid {
   // General properties
@@ -106,29 +106,31 @@ export class Grid {
 
   /**
    * Return a specific node.
-   * @param x [x-position on the grid]
-   * @param y [y-position on the grid]
+   * @param position [position on the grid]
    */
-  public getNodeAt(x: number, y: number): Node {
-    return this.grid[y][x];
+  public getNodeAt(position: IPoint): Node {
+    return this.grid[position.y][position.x];
   }
 
   /**
    * Check if specific node walkable.
-   * @param x [x-position on the grid]
-   * @param y [y-position on the grid]
+   * @param position [position on the grid]
    */
-  public isWalkableAt(x: number, y: number): boolean {
-    return this.grid[y][x].getIsWalkable();
+  public isWalkableAt(position: IPoint): boolean {
+    return this.grid[position.y][position.x].getIsWalkable();
   }
 
   /**
    * Check if specific node is on the grid.
-   * @param x [x-position on the grid]
-   * @param y [y-position on the grid]
+   * @param position [position on the grid]
    */
-  private isOnTheGrid(x: number, y: number): boolean {
-    return x >= 0 && x < this.width && y >= 0 && y < this.height;
+  private isOnTheGrid(position: IPoint): boolean {
+    return (
+      position.x >= 0 &&
+      position.x < this.width &&
+      position.y >= 0 &&
+      position.y < this.height
+    );
   }
 
   /**
@@ -146,13 +148,13 @@ export class Grid {
 
     for (var y = currentYPos - 1; y <= currentYPos + 1; y++) {
       for (var x = currentXPos - 1; x <= currentXPos + 1; x++) {
-        if (this.isOnTheGrid(x, y)) {
-          if (this.isWalkableAt(x, y)) {
+        if (this.isOnTheGrid({ x, y })) {
+          if (this.isWalkableAt({ x, y })) {
             if (diagnonalMovementAllowed) {
-              surroundingNodes.push(this.getNodeAt(x, y));
+              surroundingNodes.push(this.getNodeAt({ x, y }));
             } else {
               if (x == currentXPos || y == currentYPos) {
-                surroundingNodes.push(this.getNodeAt(x, y));
+                surroundingNodes.push(this.getNodeAt({ x, y }));
               }
             }
           } else {

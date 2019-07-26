@@ -7,13 +7,14 @@
 
 import * as AStar from '../../main';
 import * as dat from 'dat.gui';
+import { IPoint } from '../../interfaces/astar-interfaces';
 
 export class MainScene extends Phaser.Scene {
   // variables
-  private endPosition: number[];
+  private endPosition: IPoint;
   private gridHeight: number;
   private gridWidth: number;
-  private startPosition: number[];
+  private startPosition: IPoint;
   private tileSize: number;
 
   // game objects
@@ -42,14 +43,14 @@ export class MainScene extends Phaser.Scene {
     this.tileSize = 25;
     this.gridHeight = this.sys.canvas.height / this.tileSize;
     this.gridWidth = this.sys.canvas.width / this.tileSize;
-    this.startPosition = [
-      Phaser.Math.RND.between(0, this.gridWidth - 1),
-      Phaser.Math.RND.between(0, this.gridHeight - 1)
-    ];
-    this.endPosition = [
-      Phaser.Math.RND.between(0, this.gridWidth - 1),
-      Phaser.Math.RND.between(0, this.gridHeight - 1)
-    ];
+    this.startPosition = {
+      x: Phaser.Math.RND.between(0, this.gridWidth - 1),
+      y: Phaser.Math.RND.between(0, this.gridHeight - 1)
+    };
+    this.endPosition = {
+      x: Phaser.Math.RND.between(0, this.gridWidth - 1),
+      y: Phaser.Math.RND.between(0, this.gridHeight - 1)
+    };
 
     this.aStarInstance = new AStar.AStarFinder({
       grid: {

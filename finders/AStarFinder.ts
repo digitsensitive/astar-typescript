@@ -10,7 +10,10 @@ import * as _ from 'lodash';
 import { backtrace } from '../core/util';
 import { heuristicFunction } from '../core/heuristic';
 import { Grid } from '../core/grid';
-import { IAStarFinderConstructor } from '../interfaces/astar-interfaces';
+import {
+  IAStarFinderConstructor,
+  IPoint
+} from '../interfaces/astar-interfaces';
 import { Node } from '../core/node';
 import { Heuristic } from '../types/astar-types';
 
@@ -68,24 +71,14 @@ export class AStarFinder {
         : 'Manhatten';
   }
 
-  public findPath(startPosition: number[], endPosition: number[]): number[][] {
-    let startX = startPosition[0];
-    let startY = startPosition[1];
-    let endX = endPosition[0];
-    let endY = endPosition[1];
-
-    let neighbors: Node[] = [];
-    let nodePositionWithLowestFValue: number[] = [];
-
-    let startNode = this.grid.getNodeAt(startX, startY);
-    let endNode = this.grid.getNodeAt(endX, endY);
-    let currentNode: Node = startNode;
-    let abs = Math.abs;
+  public findPath(startPosition: IPoint, endPosition: IPoint): number[][] {
+    let startNode = this.grid.getNodeAt(startPosition);
+    let endNode = this.grid.getNodeAt(endPosition);
 
     // Break if start and/or end position is/are not walkable
     if (
-      !this.grid.isWalkableAt(endX, endY) ||
-      !this.grid.isWalkableAt(startX, startY)
+      !this.grid.isWalkableAt(endPosition) ||
+      !this.grid.isWalkableAt(startPosition)
     ) {
       throw new Error(
         'Path could not be created because the start and/or end position is/are not walkable.'
@@ -107,15 +100,15 @@ export class AStarFinder {
     for (let y = 0; y < this.grid.height; y++) {
       for (let x = 0; x < this.grid.width; x++) {
         // If not walkable
-        if (!this.grid.isWalkableAt(x, y)) {
+        if (!this.grid.isWalkableAt({ x, y })) {
           // Set FGH values to zero
-          this.grid.getNodeAt(x, y).setGValue(0);
-          this.grid.getNodeAt(x, y).setHValue(0);
-          this.grid.getNodeAt(x, y).setFValue();
+          this.grid.getNodeAt({ x, y }).setGValue(0);
+          this.grid.getNodeAt({ x, y }).setHValue(0);
+          this.grid.getNodeAt({ x, y }).setFValue();
 
           // Put on closed list
-          this.grid.getNodeAt(x, y).setIsOnClosedList(true);
-          this.closedList.push(this.grid.getNodeAt(x, y));
+          this.grid.getNodeAt({ x, y }).setIsOnClosedList(true);
+          this.closedList.push(this.grid.getNodeAt({ x, y }));
         }
       }
     }

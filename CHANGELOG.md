@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Multiple optimizations in `Grid.ts` and `AStarFinder.ts`
 - Update `Heuristics`
 - New functionality to include or exclude start and end node when backtracing
+- Add interface `IPoint` 
 
 ## [0.0.5] - 2019-07-17
 ### Added
