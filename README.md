@@ -7,7 +7,7 @@ AStar-Typescript
 
 AStar-TypeScript is an A* pathfinding API written in TypeScript to use for your HTML5 games or other browser-based projects.
 
-This library was influenced and inspired by [@qioa - PathFinding.js](https://github.com/qiao/PathFinding.js) and [@redblobgames](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
+This library was influenced and inspired by [@qioa - PathFinding.js](https://github.com/qiao/PathFinding.js), [@bgrins - javascript-astar](https://github.com/bgrins/javascript-astar), [@prettymuchbryce - easystarjs](https://github.com/prettymuchbryce/easystarjs) and [@redblobgames](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
 
 Buy me a coffee
 ---------------
