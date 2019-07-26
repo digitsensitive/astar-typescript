@@ -19,28 +19,38 @@ Whether you use this project, have learned something from it, or just like it, p
 <img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important; width: auto !important;"></a>
 </div>
 
+Installation
+------------
+
+Using npm:
+
+```
+npm i astar-typescript
+```
+
 Usage
 -----
 
-## import package
+Import the package:
 
-```
+```ts
 import * as AStar from './node_modules/astar-typescript/main';
 ```
-## create an astar-finder and a grid instance
 
+Create an astar instance:
+
+```ts
+private aStarInstance: AStar.AStarFinder;
 ```
-private m_aStarInstance: AStar.AStarFinder;
-private m_grid: AStar.Grid;
-```
-## load data
+
+Load grid data:
 
 Using an **array** (hardcoded or from a Tilemap-Editor)
 > 0 = walkable
 > 1 = not walkable
 
 ``` ts
-let matrix = [
+let myMatrix = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 1],
   [0, 0, 1, 1, 0, 1, 1, 0],
@@ -51,35 +61,39 @@ let matrix = [
   [0, 0, 1, 0, 0, 0, 0, 0]
 ];
 
-this.m_grid = new AStar.Grid(matrix);
+this.aStarInstance = new AStar.AStarFinder({
+  grid: {
+    width: 8,
+    height: 8,
+    matrix: myMatrix
+  }
+});
 ```
 
 or randomly generated array **from width and height**
 
 ``` ts
-let width = 10;
-let height = 10;
-
-this.m_grid = new AStar.Grid(width, height);
+this.aStarInstance = new AStar.AStarFinder({
+  grid: {
+    width: 8,
+    height: 8
+  }
+});
 ```
-## set-up your instance
 
-``` ts
-let diagonalMovement = true;
+Get the path:
 
-this.m_aStarInstance = new AStar.AStarFinder(this.m_grid, diagonalMovement);
-```
-## return the path
+```ts
+let startPos = {x: 0, y: 0};
+let goalPos = {x: 4, y: 5};
 
-``` ts
-let startPos = [0, 0];
-let goalPos = [4, 5];
-
-this.m_pathway = this.m_aStarInstance.findPath(startPos, goalPos);
-
+let myPathway = this.aStarInstance.findPath(
+  this.startPos,
+  this.goalPos
+);
 ```
 
 license
----------------
+-------
 
 MIT
