@@ -140,20 +140,19 @@ export class Grid {
    * @param diagnonalMovementAllowed [is diagnonal movement allowed?]
    */
   public getSurroundingNodes(
-    currentXPos: number,
-    currentYPos: number,
+    currentPosition: IPoint,
     diagnonalMovementAllowed: boolean
   ): Node[] {
     let surroundingNodes: Node[] = [];
 
-    for (var y = currentYPos - 1; y <= currentYPos + 1; y++) {
-      for (var x = currentXPos - 1; x <= currentXPos + 1; x++) {
+    for (var y = currentPosition.y - 1; y <= currentPosition.y + 1; y++) {
+      for (var x = currentPosition.x - 1; x <= currentPosition.x + 1; x++) {
         if (this.isOnTheGrid({ x, y })) {
           if (this.isWalkableAt({ x, y })) {
             if (diagnonalMovementAllowed) {
               surroundingNodes.push(this.getNodeAt({ x, y }));
             } else {
-              if (x == currentXPos || y == currentYPos) {
+              if (x == currentPosition.x || y == currentPosition.y) {
                 surroundingNodes.push(this.getNodeAt({ x, y }));
               }
             }
@@ -185,7 +184,7 @@ export class Grid {
         this.grid[y][x].setIsOnClosedList(false);
         this.grid[y][x].setIsOnOpenList(false);
         this.grid[y][x].setParent(undefined);
-        this.grid[y][x].resetFGHValues();
+        this.grid[y][x].setFGHValuesToZero();
       }
     }
   }

@@ -36,7 +36,39 @@ export class Node {
     this.isWalkable = aParams.walkable || true;
   }
 
-  // Getter functions
+  /**
+   * Calculate or Recalculate the F value
+   * This is a private function
+   */
+  private calculateFValue(): void {
+    this.fValue = this.gValue + this.hValue;
+  }
+
+  /**
+   * Set the g value of the node
+   */
+  public setGValue(gValue: number): void {
+    this.gValue = gValue;
+    // The G value has changed, so recalculate the f value
+    this.calculateFValue();
+  }
+
+  /**
+   * Set the h value of the node
+   */
+  public setHValue(hValue: number): void {
+    this.hValue = hValue;
+    // The H value has changed, so recalculate the f value
+    this.calculateFValue();
+  }
+
+  /**
+   * Reset the FGH values to zero
+   */
+  public setFGHValuesToZero(): void {
+    this.fValue = this.gValue = this.hValue = 0;
+  }
+
   public getFValue(): number {
     return this.fValue;
   }
@@ -59,16 +91,6 @@ export class Node {
     return this.isWalkable;
   }
 
-  // Setter functions
-  public setFValue(): void {
-    this.fValue = this.gValue + this.hValue;
-  }
-  public setGValue(_gValue: number): void {
-    this.gValue = _gValue;
-  }
-  public setHValue(_hValue: number): void {
-    this.hValue = _hValue;
-  }
   public setParent(_parent: Node): void {
     this.parentNode = _parent;
   }
@@ -80,11 +102,5 @@ export class Node {
   }
   public setIsWalkable(isWalkable: boolean): void {
     this.isWalkable = isWalkable;
-  }
-
-  public resetFGHValues(): void {
-    this.fValue = 0;
-    this.gValue = 0;
-    this.hValue = 0;
   }
 }

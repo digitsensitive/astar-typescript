@@ -18,30 +18,24 @@ import { Node } from '../core/node';
 import { Heuristic } from '../types/astar-types';
 
 export class AStarFinder {
-  // Grid and grid relevant data
+  // Grid
   private grid: Grid;
 
-  // AStar-Finder Lists
-  private openList: Node[];
+  // Lists
   private closedList: Node[];
-  private m_pathwayList: Node[];
+  private openList: Node[];
 
-  // Pathway variables
-  private diagonalAllowed: boolean;
+  // Readonly pathway variables
+  readonly diagonalAllowed: boolean;
+  readonly heuristicFunction: Heuristic;
+  readonly includeStartNode: boolean;
+  readonly includeEndNode: boolean;
+
+  // Protected pathway variables
   protected weight: number;
-  protected heuristicFunction: Heuristic;
-  private movementCostNotDiagonal: number;
-  private movementCostDiagonal: number;
-  private m_fieldWithLowestFCost: number[];
-  private includeStartNode: boolean;
-  private includeEndNode: boolean;
-
-  public getMapArray(): Node[][] {
-    return this.grid.getGrid();
-  }
 
   constructor(aParams: IAStarFinderConstructor) {
-    // Get grid with grid relevant data
+    // Create grid
     this.grid = new Grid({
       width: aParams.grid.width,
       height: aParams.grid.height,
@@ -49,26 +43,26 @@ export class AStarFinder {
       densityOfObstacles: aParams.grid.densityOfObstacles || 0
     });
 
-    // Init AStar-Finder Lists
-    this.openList = [];
+    // Init lists
     this.closedList = [];
-    this.m_pathwayList = [];
+    this.openList = [];
 
     // Init pathway variables
     this.diagonalAllowed =
       aParams.diagonalAllowed !== undefined ? aParams.diagonalAllowed : true;
-    this.weight = aParams.weight || 1;
-    this.movementCostNotDiagonal = 10;
-    this.movementCostDiagonal = 14;
-    this.m_fieldWithLowestFCost = [];
-    this.includeStartNode =
-      aParams.includeStartNode !== undefined ? aParams.includeStartNode : true;
-    this.includeEndNode =
-      aParams.includeEndNode !== undefined ? aParams.includeEndNode : true;
     this.heuristicFunction =
       aParams.heuristicFunction !== undefined
         ? aParams.heuristicFunction
         : 'Manhatten';
+    this.includeStartNode =
+      aParams.includeStartNode !== undefined ? aParams.includeStartNode : true;
+    this.includeEndNode =
+      aParams.includeEndNode !== undefined ? aParams.includeEndNode : true;
+    this.weight = aParams.weight || 1;
+  }
+
+  public getMapArray(): Node[][] {
+    return this.grid.getGrid();
   }
 
   public findPath(startPosition: IPoint, endPosition: IPoint): number[][] {
@@ -86,29 +80,34 @@ export class AStarFinder {
       return [];
     }
 
-    // Set FGH values from start node to zero
-    startNode.setGValue(0);
-    startNode.setHValue(0);
-    startNode.setFValue();
-
     // Push start node into open list
     startNode.setIsOnOpenList(true);
     this.openList.push(startNode);
 
-    // Loop through the grid, set the FGH values of non walkable nodes to zero
-    // and push them on the closed list
+    // Loop through the grid
+    // Set the FGH values of non walkable nodes to zero and push them on the closed list
+    // Set the H value for walkable nodes
     for (let y = 0; y < this.grid.height; y++) {
       for (let x = 0; x < this.grid.width; x++) {
-        // If not walkable
+        let node = this.grid.getNodeAt({ x, y });
         if (!this.grid.isWalkableAt({ x, y })) {
+          // OK, this node is not walkable
           // Set FGH values to zero
-          this.grid.getNodeAt({ x, y }).setGValue(0);
-          this.grid.getNodeAt({ x, y }).setHValue(0);
-          this.grid.getNodeAt({ x, y }).setFValue();
-
+          node.setFGHValuesToZero();
           // Put on closed list
-          this.grid.getNodeAt({ x, y }).setIsOnClosedList(true);
-          this.closedList.push(this.grid.getNodeAt({ x, y }));
+          node.setIsOnClosedList(true);
+          this.closedList.push(node);
+        } else {
+          // OK, this node is walkable
+          // Calculate the H value for it
+          node.setHValue(
+            heuristicFunction(
+              this.heuristicFunction,
+              node.position,
+              endNode.position,
+              this.weight
+            )
+          );
         }
       }
     }
@@ -120,25 +119,25 @@ export class AStarFinder {
         return o.getFValue();
       });
 
-      // Remove new field from open list and put into closed list
+      // Move current node from open list to closed list
       currentNode.setIsOnOpenList(false);
-      currentNode.setIsOnClosedList(true);
       _.remove(this.openList, currentNode);
+
+      currentNode.setIsOnClosedList(true);
       this.closedList.push(currentNode);
 
       // End of path is reached
       if (currentNode === endNode) {
-        console.log('Path created. ');
         return backtrace(endNode, this.includeStartNode, this.includeEndNode);
       }
 
       // Get neighbors
       let neighbors = this.grid.getSurroundingNodes(
-        currentNode.position.x,
-        currentNode.position.y,
+        currentNode.position,
         this.diagonalAllowed
       );
 
+      // Loop through all the neighbors
       for (let i in neighbors) {
         let neightbor = neighbors[i];
 
@@ -147,14 +146,11 @@ export class AStarFinder {
           continue;
         }
 
-        let startPos = neightbor.position;
-        let endPos = endNode.position;
-
         // Calculate the g value of the neightbor
         let nextGValue =
           currentNode.getGValue() +
-          (neightbor.position.x !== currentNode.posX ||
-          neightbor.position.y! == currentNode.posY
+          (neightbor.position.x !== currentNode.position.x ||
+          neightbor.position.y! == currentNode.position.y
             ? this.weight
             : this.weight * 1.41421);
 
@@ -165,29 +161,19 @@ export class AStarFinder {
           nextGValue < neightbor.getGValue()
         ) {
           neightbor.setGValue(nextGValue);
-          neightbor.setHValue(
-            heuristicFunction(
-              this.heuristicFunction,
-              neightbor.position,
-              endNode.position,
-              this.weight
-            )
-          );
-          neightbor.setFValue();
           neightbor.setParent(currentNode);
 
           if (!neightbor.getIsOnOpenList()) {
             neightbor.setIsOnOpenList(true);
             this.openList.push(neightbor);
           } else {
-            /* okay this is a better way, so change the parent */
+            // okay this is a better way, so change the parent
             neightbor.setParent(currentNode);
           }
         }
       }
     }
-
-    console.log('ERROR: Path could not be created. ');
+    throw new Error('Path could not be created. ');
     return [];
   }
 }
