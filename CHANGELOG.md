@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.1.0] - 2019-XX-XX
+### Changed
+- Add TimerEvent to path generation in example
+
 ## [1.0.0] - 2019-07-26
 ### Added
 - Example folder with an integration of this library into [Phaser 3](https://phaser.io/phaser3)
