@@ -11,6 +11,7 @@ import { IPoint } from '../../interfaces/astar-interfaces';
 
 export class MainScene extends Phaser.Scene {
   // variables
+  private currentPathObject: number;
   private endPosition: IPoint;
   private gridHeight: number;
   private gridWidth: number;
@@ -36,7 +37,8 @@ export class MainScene extends Phaser.Scene {
 
   init(): void {
     // variables
-    this.tileSize = 25;
+    this.currentPathObject = 0;
+    this.tileSize = 40;
     this.gridHeight = this.sys.canvas.height / this.tileSize;
     this.gridWidth = this.sys.canvas.width / this.tileSize;
     this.startPosition = {
@@ -52,7 +54,9 @@ export class MainScene extends Phaser.Scene {
       grid: {
         width: this.gridWidth,
         height: this.gridHeight
-      }
+      },
+      includeEndNode: false,
+      includeStartNode: false
     });
 
     this.pathwayAStar = this.aStarInstance.findPath(
@@ -72,9 +76,9 @@ export class MainScene extends Phaser.Scene {
         this.sys.canvas.height,
         this.tileSize,
         this.tileSize,
-        0xddd5d5,
+        0x5cdb95,
         1,
-        0xffffff,
+        0x8ee4af,
         1
       )
       .setOrigin(0, 0);
@@ -93,7 +97,7 @@ export class MainScene extends Phaser.Scene {
                 y * this.tileSize + 1,
                 this.tileSize - 2,
                 this.tileSize - 2,
-                0xa5595a,
+                0x05386b,
                 1
               )
               .setOrigin(0, 0)
@@ -102,28 +106,11 @@ export class MainScene extends Phaser.Scene {
       }
     }
 
-    // create the astar path
-    this.pathwayAStarObjects = [];
-    for (let p of this.pathwayAStar) {
-      this.pathwayAStarObjects.push(
-        this.add
-          .rectangle(
-            p[0] * this.tileSize + 1,
-            p[1] * this.tileSize + 1,
-            this.tileSize - 2,
-            this.tileSize - 2,
-            0xf5c242,
-            1
-          )
-          .setOrigin(0, 0)
-      );
-    }
-
     // create start and end object
     this.startObject = this.add
       .rectangle(
-        this.startPosition[0] * this.tileSize + 1,
-        this.startPosition[1] * this.tileSize + 1,
+        this.startPosition.x * this.tileSize + 1,
+        this.startPosition.y * this.tileSize + 1,
         this.tileSize - 2,
         this.tileSize - 2,
         0xd9a011,
@@ -132,8 +119,8 @@ export class MainScene extends Phaser.Scene {
       .setOrigin(0, 0);
     this.endObject = this.add
       .rectangle(
-        this.endPosition[0] * this.tileSize + 1,
-        this.endPosition[1] * this.tileSize + 1,
+        this.endPosition.x * this.tileSize + 1,
+        this.endPosition.y * this.tileSize + 1,
         this.tileSize - 2,
         this.tileSize - 2,
         0xd9a011,
@@ -141,7 +128,34 @@ export class MainScene extends Phaser.Scene {
       )
       .setOrigin(0, 0);
 
+    // create the astar path
+    this.pathwayAStarObjects = [];
+    this.time.addEvent({
+      delay: 100,
+      callback: this.drawNextObjectOfPath,
+      callbackScope: this,
+      loop: true
+    });
+
     var gui = new dat.GUI();
     gui.add(this.endObject, 'fillColor');
+  }
+
+  private drawNextObjectOfPath(): void {
+    if (this.currentPathObject < this.pathwayAStar.length) {
+      this.pathwayAStarObjects.push(
+        this.add
+          .rectangle(
+            this.pathwayAStar[this.currentPathObject][0] * this.tileSize + 1,
+            this.pathwayAStar[this.currentPathObject][1] * this.tileSize + 1,
+            this.tileSize - 2,
+            this.tileSize - 2,
+            0xedf5e1,
+            1
+          )
+          .setOrigin(0, 0)
+      );
+    }
+    this.currentPathObject++;
   }
 }
