@@ -4,6 +4,7 @@
  * @copyright 2017-2019 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
+import { Grid } from '../core/grid';
 import { IAStarFinderConstructor, IPoint } from '../interfaces/astar-interfaces';
 import { Node } from '../core/node';
 import { Heuristic } from '../types/astar-types';
@@ -18,5 +19,6 @@ export declare class AStarFinder {
     protected weight: number;
     constructor(aParams: IAStarFinderConstructor);
     getMapArray(): Node[][];
+    getGrid(): Grid;
     findPath(startPosition: IPoint, endPosition: IPoint): number[][];
 }

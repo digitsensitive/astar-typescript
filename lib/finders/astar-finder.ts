@@ -65,6 +65,10 @@ export class AStarFinder {
     return this.grid.getGrid();
   }
 
+  public getGrid(): Grid {
+    return this.grid;
+  }
+
   public findPath(startPosition: IPoint, endPosition: IPoint): number[][] {
     let startNode = this.grid.getNodeAt(startPosition);
     let endNode = this.grid.getNodeAt(endPosition);

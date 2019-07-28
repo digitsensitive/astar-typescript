@@ -38,6 +38,9 @@ class AStarFinder {
     getMapArray() {
         return this.grid.getGrid();
     }
+    getGrid() {
+        return this.grid;
+    }
     findPath(startPosition, endPosition) {
         let startNode = this.grid.getNodeAt(startPosition);
         let endNode = this.grid.getNodeAt(endPosition);
