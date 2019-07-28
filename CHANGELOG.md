@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Add TimerEvent to path generation in example
 - Remove `example` folder
-- Move library files to folder `lib``
+- Move library files to folder `lib`
 - Rename `main.ts` to `astar.ts`
 - Adapt `README.md`
 
