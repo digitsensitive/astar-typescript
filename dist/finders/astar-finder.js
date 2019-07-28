@@ -19,7 +19,6 @@ class AStarFinder {
             matrix: aParams.grid.matrix || undefined,
             densityOfObstacles: aParams.grid.densityOfObstacles || 0
         });
-        this.cloneGrid = this.grid;
         // Init lists
         this.closedList = [];
         this.openList = [];
@@ -40,10 +39,6 @@ class AStarFinder {
         return this.grid.getGrid();
     }
     findPath(startPosition, endPosition) {
-        // Reset grid and lists
-        this.closedList = [];
-        this.openList = [];
-        this.grid = this.cloneGrid;
         let startNode = this.grid.getNodeAt(startPosition);
         let endNode = this.grid.getNodeAt(endPosition);
         // Break if start and/or end position is/are not walkable

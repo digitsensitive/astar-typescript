@@ -19,7 +19,6 @@ import { Heuristic } from '../types/astar-types';
 
 export class AStarFinder {
   // Grid
-  private cloneGrid: Grid;
   private grid: Grid;
 
   // Lists
@@ -43,7 +42,6 @@ export class AStarFinder {
       matrix: aParams.grid.matrix || undefined,
       densityOfObstacles: aParams.grid.densityOfObstacles || 0
     });
-    this.cloneGrid = this.grid;
 
     // Init lists
     this.closedList = [];
@@ -68,11 +66,6 @@ export class AStarFinder {
   }
 
   public findPath(startPosition: IPoint, endPosition: IPoint): number[][] {
-    // Reset grid and lists
-    this.closedList = [];
-    this.openList = [];
-    this.grid = this.cloneGrid;
-
     let startNode = this.grid.getNodeAt(startPosition);
     let endNode = this.grid.getNodeAt(endPosition);
 
