@@ -8,6 +8,7 @@ import { IAStarFinderConstructor, IPoint } from '../interfaces/astar-interfaces'
 import { Node } from '../core/node';
 import { Heuristic } from '../types/astar-types';
 export declare class AStarFinder {
+    private cloneGrid;
     private grid;
     private closedList;
     private openList;
