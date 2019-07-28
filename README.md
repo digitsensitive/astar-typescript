@@ -9,8 +9,7 @@ AStar-TypeScript is an A* pathfinding API written in TypeScript to use for your 
 
 This library was influenced and inspired by [@qioa - PathFinding.js](https://github.com/qiao/PathFinding.js), [@bgrins - javascript-astar](https://github.com/bgrins/javascript-astar), [@prettymuchbryce - easystarjs](https://github.com/prettymuchbryce/easystarjs) and [@redblobgames](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
 
-Buy me a coffee
----------------
+## Buy me a coffee
 
 Whether you use this project, have learned something from it, or just like it, please consider supporting it by buying me a coffee.
 
@@ -19,28 +18,41 @@ Whether you use this project, have learned something from it, or just like it, p
 <img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important; width: auto !important;"></a>
 </div>
 
-Installation
-------------
+## Installation
 
-Using npm:
-
+```sh
+npm install astar-typescript --save
+yarn add astar-typescript
+bower install astar-typescript --save
 ```
-npm i astar-typescript
+
+## Import
+
+### TypeScript
+```typescript
+import { AStarFinder } from "astar-typescript";
 ```
 
-Usage
------
+### Javascript
 
-Import the package:
-
-```ts
-import * as AStar from './node_modules/astar-typescript/main';
+```javascript
+let AStarFinder = require("astar-typescript");
 ```
+
+### AMD
+
+```javascript
+define(function(require,exports,module){
+  let AStarFinder = require('astar-typescript');
+});
+```
+
+## Usage
 
 Create an astar instance:
 
 ```ts
-private aStarInstance: AStar.AStarFinder;
+private aStarInstance: AStarFinder;
 ```
 
 Load grid data:
@@ -61,7 +73,7 @@ let myMatrix = [
   [0, 0, 1, 0, 0, 0, 0, 0]
 ];
 
-this.aStarInstance = new AStar.AStarFinder({
+this.aStarInstance = new AStarFinder({
   grid: {
     width: 8,
     height: 8,
@@ -73,7 +85,7 @@ this.aStarInstance = new AStar.AStarFinder({
 or randomly generated array **from width and height**
 
 ``` ts
-this.aStarInstance = new AStar.AStarFinder({
+this.aStarInstance = new AStarFinder({
   grid: {
     width: 8,
     height: 8
@@ -84,13 +96,10 @@ this.aStarInstance = new AStar.AStarFinder({
 Get the path:
 
 ```ts
-let startPos = {x: 0, y: 0};
-let goalPos = {x: 4, y: 5};
+let startPos = { x: 0, y: 0 };
+let goalPos = { x: 4, y: 5 };
 
-let myPathway = this.aStarInstance.findPath(
-  this.startPos,
-  this.goalPos
-);
+let myPathway = this.aStarInstance.findPath(startPos, goalPos);
 ```
 
 license

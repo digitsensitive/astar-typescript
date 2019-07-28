@@ -1,4 +1,3 @@
-import { Grid } from '../core/grid';
 import { Heuristic } from '../types/astar-types';
 
 export interface IAStarFinderConstructor {
