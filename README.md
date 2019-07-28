@@ -75,8 +75,6 @@ let myMatrix = [
 
 this.aStarInstance = new AStarFinder({
   grid: {
-    width: 8,
-    height: 8,
     matrix: myMatrix
   }
 });
