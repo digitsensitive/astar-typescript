@@ -4,8 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [1.1.0] - 2019-XX-XX
+### Added
+- Add `tsconfig.json`file
+- Add `typescript 3.5.2` as `devDependencies`
+
 ### Changed
 - Add TimerEvent to path generation in example
+- Remove `example` folder
+- Move library files to folder `lib``
+- Rename `main.ts` to `astar.ts`
+- Adapt `README.md`
 
 ## [1.0.0] - 2019-07-26
 ### Added

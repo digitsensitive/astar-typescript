@@ -13,15 +13,17 @@
   },
   "license": "MIT",
   "author": "Digitsensitive <digit.sensitivee@gmail.com>",
-  "main": "main.ts",
+  "main": "dist/astar.js",
+  "types": "dist/astar.d.ts",
   "scripts": {
-    "install-dependencies": "yarn run install-core-dependencies && yarn run install-example-dependencies",
-    "install-example-dependencies": "cd example && yarn install",
-    "install-core-dependencies": "yarn install",
-    "example": "cd example && webpack --mode development && webpack-dev-server --mode development"
+    "build": "tsc",
+    "install-dependencies": "yarn install"
   },
   "dependencies": {
     "lodash": "4.17.14"
+  },
+  "devDependencies": {
+    "typescript": "3.5.2"
   },
   "repository": {
     "type": "git",
