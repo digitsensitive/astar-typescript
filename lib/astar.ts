@@ -1,2 +1,2 @@
-export { AStarFinder } from './finders/AStarFinder';
-export { Grid } from './core/Grid';
+export { AStarFinder } from './finders/astar-finder';
+export { Grid } from './core/grid';
