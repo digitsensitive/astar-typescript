@@ -45,6 +45,9 @@ class AStarFinder {
         this.grid = newGrid;
     }
     findPath(startPosition, endPosition) {
+        // Reset lists
+        this.closedList = [];
+        this.openList = [];
         let startNode = this.grid.getNodeAt(startPosition);
         let endNode = this.grid.getNodeAt(endPosition);
         // Break if start and/or end position is/are not walkable

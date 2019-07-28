@@ -74,6 +74,10 @@ export class AStarFinder {
   }
 
   public findPath(startPosition: IPoint, endPosition: IPoint): number[][] {
+    // Reset lists
+    this.closedList = [];
+    this.openList = [];
+
     let startNode = this.grid.getNodeAt(startPosition);
     let endNode = this.grid.getNodeAt(endPosition);
 
