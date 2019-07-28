@@ -20,5 +20,6 @@ export declare class AStarFinder {
     constructor(aParams: IAStarFinderConstructor);
     getMapArray(): Node[][];
     getGrid(): Grid;
+    setGrid(newGrid: Grid): void;
     findPath(startPosition: IPoint, endPosition: IPoint): number[][];
 }

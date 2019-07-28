@@ -41,6 +41,9 @@ class AStarFinder {
     getGrid() {
         return this.grid;
     }
+    setGrid(newGrid) {
+        this.grid = newGrid;
+    }
     findPath(startPosition, endPosition) {
         let startNode = this.grid.getNodeAt(startPosition);
         let endNode = this.grid.getNodeAt(endPosition);
