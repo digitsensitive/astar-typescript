@@ -42,12 +42,10 @@ export declare class Grid {
      * @param diagnonalMovementAllowed [is diagnonal movement allowed?]
      */
     getSurroundingNodes(currentPosition: IPoint, diagnonalMovementAllowed: boolean): Node[];
-    /**
-     * Get the current grid
-     */
-    getGrid(): Node[][];
+    setGrid(newGrid: Node[][]): void;
     /**
      * Reset the grid
      */
     resetGrid(): void;
+    clone(): Node[][];
 }

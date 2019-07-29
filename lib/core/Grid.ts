@@ -168,11 +168,8 @@ export class Grid {
     return surroundingNodes;
   }
 
-  /**
-   * Get the current grid
-   */
-  public getGrid(): Node[][] {
-    return this.grid;
+  public setGrid(newGrid: Node[][]): void {
+    this.grid = newGrid;
   }
 
   /**
@@ -187,5 +184,26 @@ export class Grid {
         this.grid[y][x].setFGHValuesToZero();
       }
     }
+  }
+
+  public clone(): Node[][] {
+    let newGrid: Node[][] = [];
+    let id: number = 0;
+
+    // Generate an empty matrix
+    for (let y = 0; y < this.height; y++) {
+      newGrid[y] = [];
+      for (let x = 0; x < this.width; x++) {
+        newGrid[y][x] = new Node({
+          id: id,
+          xPos: x,
+          yPos: y
+        });
+        newGrid[y][x].setIsWalkable(this.grid[y][x].getIsWalkable());
+
+        id++;
+      }
+    }
+    return newGrid;
   }
 }

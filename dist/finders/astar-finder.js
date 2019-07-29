@@ -35,15 +35,6 @@ class AStarFinder {
             aParams.includeEndNode !== undefined ? aParams.includeEndNode : true;
         this.weight = aParams.weight || 1;
     }
-    getMapArray() {
-        return this.grid.getGrid();
-    }
-    getGrid() {
-        return this.grid;
-    }
-    setGrid(newGrid) {
-        this.grid = newGrid;
-    }
     findPath(startPosition, endPosition) {
         // Reset lists
         this.closedList = [];

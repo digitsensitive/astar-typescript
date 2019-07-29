@@ -135,11 +135,8 @@ class Grid {
         }
         return surroundingNodes;
     }
-    /**
-     * Get the current grid
-     */
-    getGrid() {
-        return this.grid;
+    setGrid(newGrid) {
+        this.grid = newGrid;
     }
     /**
      * Reset the grid
@@ -153,6 +150,24 @@ class Grid {
                 this.grid[y][x].setFGHValuesToZero();
             }
         }
+    }
+    clone() {
+        let newGrid = [];
+        let id = 0;
+        // Generate an empty matrix
+        for (let y = 0; y < this.height; y++) {
+            newGrid[y] = [];
+            for (let x = 0; x < this.width; x++) {
+                newGrid[y][x] = new node_1.Node({
+                    id: id,
+                    xPos: x,
+                    yPos: y
+                });
+                newGrid[y][x].setIsWalkable(this.grid[y][x].getIsWalkable());
+                id++;
+            }
+        }
+        return newGrid;
     }
 }
 exports.Grid = Grid;

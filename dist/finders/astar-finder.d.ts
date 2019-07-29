@@ -6,10 +6,9 @@
  */
 import { Grid } from '../core/grid';
 import { IAStarFinderConstructor, IPoint } from '../interfaces/astar-interfaces';
-import { Node } from '../core/node';
 import { Heuristic } from '../types/astar-types';
 export declare class AStarFinder {
-    private grid;
+    grid: Grid;
     private closedList;
     private openList;
     readonly diagonalAllowed: boolean;
@@ -18,8 +17,5 @@ export declare class AStarFinder {
     readonly includeEndNode: boolean;
     protected weight: number;
     constructor(aParams: IAStarFinderConstructor);
-    getMapArray(): Node[][];
-    getGrid(): Grid;
-    setGrid(newGrid: Grid): void;
     findPath(startPosition: IPoint, endPosition: IPoint): number[][];
 }

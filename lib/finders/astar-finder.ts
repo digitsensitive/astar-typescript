@@ -19,7 +19,7 @@ import { Heuristic } from '../types/astar-types';
 
 export class AStarFinder {
   // Grid
-  private grid: Grid;
+  public grid: Grid;
 
   // Lists
   private closedList: Node[];
@@ -59,18 +59,6 @@ export class AStarFinder {
     this.includeEndNode =
       aParams.includeEndNode !== undefined ? aParams.includeEndNode : true;
     this.weight = aParams.weight || 1;
-  }
-
-  public getMapArray(): Node[][] {
-    return this.grid.getGrid();
-  }
-
-  public getGrid(): Grid {
-    return this.grid;
-  }
-
-  public setGrid(newGrid: Grid): void {
-    this.grid = newGrid;
   }
 
   public findPath(startPosition: IPoint, endPosition: IPoint): number[][] {
