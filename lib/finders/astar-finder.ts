@@ -74,7 +74,7 @@ export class AStarFinder {
       !this.grid.isWalkableAt(endPosition) ||
       !this.grid.isWalkableAt(startPosition)
     ) {
-      throw new Error(
+      console.log(
         'Path could not be created because the start and/or end position is/are not walkable.'
       );
       return [];
@@ -113,7 +113,7 @@ export class AStarFinder {
     }
 
     // As long the open list is not empty, continue searching a path
-    while (this.openList) {
+    while (this.openList.length !== 0) {
       // Get node with lowest f value
       let currentNode = _.minBy(this.openList, function(o) {
         return o.getFValue();
@@ -173,7 +173,7 @@ export class AStarFinder {
         }
       }
     }
-    throw new Error('Path could not be created. ');
+    console.log('Path could not be created. ');
     return [];
   }
 }
