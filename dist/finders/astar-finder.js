@@ -39,6 +39,8 @@ class AStarFinder {
         // Reset lists
         this.closedList = [];
         this.openList = [];
+        // Reset grid
+        this.grid.resetGrid();
         let startNode = this.grid.getNodeAt(startPosition);
         let endNode = this.grid.getNodeAt(endPosition);
         // Break if start and/or end position is/are not walkable
