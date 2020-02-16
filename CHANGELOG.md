@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.1.0] - 2019-XX-XX
+## [1.1.1] - 2020-02-16
 ### Added
 - Add `tsconfig.json`file
 - Add `typescript 3.5.2` as `devDependencies`
@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Adapt `README.md`
 - Update `.gitignore`
 - Move `astar.ts` to `lib`
+- Update `lodash` to version 4.17.15
+- Update `typescript` to version 3.7.5
+- Small cahnges in the README.md
 
 ### Fixed
 - Bug that empty array could go into the main while loop of the astar-finder

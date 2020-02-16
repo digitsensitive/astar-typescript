@@ -1,15 +1,16 @@
 AStar-Typescript
 ==============
-[![GitHub Stars](https://img.shields.io/david/digitsensitive/astar-typescript.svg)](https://david-dm.org/digitsensitive/astar-typescript)
-[![GitHub Stars](https://img.shields.io/github/stars/digitsensitive/astar-typescript.svg)](https://github.com/digitsensitive/astar-typescript/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/digitsensitive/astar-typescript.svg)](https://github.com/digitsensitive/astar-typescript/network/members) [![GitHub Issues](https://img.shields.io/github/issues/digitsensitive/astar-typescript.svg)](https://github.com/digitsensitive/astar-typescript/issues) [![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/digitsensitive/astar-typescript)
+[![GitHub Stars](https://img.shields.io/david/digitsensitive/astar-typescript?style=flat-square)](https://david-dm.org/digitsensitive/astar-typescript)
+[![GitHub Stars](https://img.shields.io/github/stars/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/network/members) [![GitHub Issues](https://img.shields.io/github/issues/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/issues) [![Current Version](https://img.shields.io/npm/v/astar-typescript?style=flat-square)](https://www.npmjs.com/package/astar-typescript)
 
-#### The A* search algorithm library in TypeScript. ####
+
+#### The A* search algorithm library in TypeScript
 
 AStar-TypeScript is an A* pathfinding API written in TypeScript to use for your HTML5 games or other browser-based projects.
 
 This library was influenced and inspired by [@qioa - PathFinding.js](https://github.com/qiao/PathFinding.js), [@bgrins - javascript-astar](https://github.com/bgrins/javascript-astar), [@prettymuchbryce - easystarjs](https://github.com/prettymuchbryce/easystarjs) and [@redblobgames](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
 
-## Buy me a coffee
+## Buy me a coffee
 
 Whether you use this project, have learned something from it, or just like it, please consider supporting it by buying me a coffee.
 
@@ -21,14 +22,15 @@ Whether you use this project, have learned something from it, or just like it, p
 ## Installation
 
 ```sh
-npm install astar-typescript --save
 yarn add astar-typescript
+npm install astar-typescript --save
 bower install astar-typescript --save
 ```
 
 ## Import
 
 ### TypeScript
+
 ```typescript
 import { AStarFinder } from "astar-typescript";
 ```
@@ -100,7 +102,6 @@ let goalPos = { x: 4, y: 5 };
 let myPathway = this.aStarInstance.findPath(startPos, goalPos);
 ```
 
-license
--------
+## License
 
 MIT

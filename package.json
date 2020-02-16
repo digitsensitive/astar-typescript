@@ -1,10 +1,11 @@
 {
   "name": "astar-typescript",
-  "version": "1.0.96",
+  "version": "1.1.1",
   "description": "A*(a-star) pathfinding in TypeScript",
   "keywords": [
-    "AStar",
+    "A-star",
     "A*",
+    "search algorithm",
     "Pathfinding",
     "TypeScript"
   ],
@@ -20,10 +21,10 @@
     "install-dependencies": "yarn install"
   },
   "dependencies": {
-    "lodash": "4.17.14"
+    "lodash": "4.17.15"
   },
   "devDependencies": {
-    "typescript": "3.5.2"
+    "typescript": "3.7.5"
   },
   "repository": {
     "type": "git",
