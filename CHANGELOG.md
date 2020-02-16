@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.1.1] - 2020-02-16
+## [1.1.2] - 2020-02-16
 ### Added
 - Add `tsconfig.json`file
 - Add `typescript 3.5.2` as `devDependencies`
@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - Bug that empty array could go into the main while loop of the astar-finder
+- Path could only be created once (https://github.com/digitsensitive/astar-typescript/issues/2)
 
 ## [1.0.0] - 2019-07-26
 ### Added
