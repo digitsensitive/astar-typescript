@@ -1,7 +1,7 @@
 /**
- * @desc Utils for pathfinding.
+ * @description Utils for pathfinding.
  * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2017-2019 Digitsensitive
+ * @copyright 2017 - 2020 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 

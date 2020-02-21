@@ -1,0 +1,37 @@
+{
+  "name": "astar-typescript-example",
+  "version": "1.0.0",
+  "description": "Example using the astar-typescript library with Phaser 3",
+  "keywords": [
+    "Phaser",
+    "Phaser 3",
+    "Phaser3",
+    "Html5-game",
+    "TypeScript",
+    "astar",
+    "a-star",
+    "pathfinding"
+  ],
+  "scripts": {
+    "dev": "webpack --mode development && webpack-dev-server --mode development"
+  },
+  "devDependencies": {
+    "@types/dat.gui": "0.7.5",
+    "expose-loader": "0.7.5",
+    "ts-loader": "6.2.1",
+    "typescript": "3.7.5",
+    "webpack": "4.41.6",
+    "webpack-cli": "3.3.11",
+    "webpack-dev-server": "3.10.3"
+  },
+  "dependencies": {
+    "astar-typescript": "1.1.4",
+    "phaser": "3.22.0",
+    "dat.gui": "0.7.6"
+  },
+  "author": {
+    "name": "digitsensitive",
+    "email": "digit.sensitivee@gmail.com"
+  },
+  "license": "MIT"
+}

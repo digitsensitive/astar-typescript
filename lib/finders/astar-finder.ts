@@ -1,7 +1,7 @@
 /**
- * @desc AStarFinder class
+ * @description astar-typescript finder class
  * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2017-2019 Digitsensitive
+ * @copyright 2017 - 2020 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -13,9 +13,9 @@ import { Grid } from '../core/grid';
 import {
   IAStarFinderConstructor,
   IPoint
-} from '../interfaces/astar-interfaces';
+} from '../interfaces/astar.interfaces';
 import { Node } from '../core/node';
-import { Heuristic } from '../types/astar-types';
+import { Heuristic } from '../types/astar.types';
 
 export class AStarFinder {
   // Grid
@@ -25,13 +25,11 @@ export class AStarFinder {
   private closedList: Node[];
   private openList: Node[];
 
-  // Readonly pathway variables
+  // Pathway variables
   readonly diagonalAllowed: boolean;
-  readonly heuristicFunction: Heuristic;
+  private heuristicFunction: Heuristic;
   readonly includeStartNode: boolean;
   readonly includeEndNode: boolean;
-
-  // Protected pathway variables
   protected weight: number;
 
   constructor(aParams: IAStarFinderConstructor) {
@@ -178,5 +176,20 @@ export class AStarFinder {
     }
     console.log('Path could not be created. ');
     return [];
+  }
+
+  /**
+   * Set the heuristic to be used for pathfinding.
+   * @param newHeuristic
+   */
+  public setHeuristic(newHeuristic: Heuristic): void {
+    this.heuristicFunction = newHeuristic;
+  }
+
+  /**
+   * Get a copy/clone of the grid.
+   */
+  public getGridClone(): Node[][] {
+    return this.grid.clone();
   }
 }

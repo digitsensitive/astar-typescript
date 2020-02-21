@@ -1,12 +1,12 @@
 /**
- * @desc Grid class
+ * @description Grid class
  * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2017-2019 Digitsensitive
+ * @copyright 2017 - 2020 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
 import { Node } from './node';
-import { IGridConstructor, IPoint } from '../interfaces/astar-interfaces';
+import { IGridConstructor, IPoint } from '../interfaces/astar.interfaces';
 
 export class Grid {
   // General properties

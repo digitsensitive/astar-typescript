@@ -1,5 +1,5 @@
 /**
- * @desc Heuristic functions
+ * @description Heuristic functions
  * Resources:
  * http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
  * https://en.wikipedia.org/wiki/Taxicab_geometry
@@ -8,11 +8,11 @@
  * http://www.gameaipro.com/GameAIPro/GameAIPro_Chapter17_Pathfinding_Architecture_Optimizations.pdf
  * https://github.com/riscy/a_star_on_grids#heuristics
  * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2017-2019 Digitsensitive
+ * @copyright 2017 - 2020 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { Heuristic } from '../types/astar-types';
+import { Heuristic } from '../types/astar.types';
 
 /**
  * Calculate for two positions the heuristic function.
