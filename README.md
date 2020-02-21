@@ -3,6 +3,9 @@ AStar-Typescript
 [![GitHub Stars](https://img.shields.io/david/digitsensitive/astar-typescript?style=flat-square)](https://david-dm.org/digitsensitive/astar-typescript)
 [![GitHub Stars](https://img.shields.io/github/stars/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/network/members) [![GitHub Issues](https://img.shields.io/github/issues/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/issues) [![Current Version](https://img.shields.io/npm/v/astar-typescript?style=flat-square)](https://www.npmjs.com/package/astar-typescript)
 
+<p align="center">
+  <img width=100% src="astar_logo.png">
+</p>
 
 #### The A* search algorithm library in TypeScript
 
