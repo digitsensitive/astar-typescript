@@ -6,6 +6,7 @@
  */
 
 import 'phaser';
+import { BootScene } from './scenes/boot-scene';
 import { MainScene } from './scenes/main-scene';
 
 // main game configuration
@@ -19,7 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.ENVELOP
   },
   type: Phaser.AUTO,
-  scene: MainScene
+  scene: [BootScene, MainScene]
 };
 
 // game class

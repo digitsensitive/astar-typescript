@@ -15,7 +15,7 @@ export class Grid {
   readonly numberOfFields: number;
 
   // The node grid
-  private grid: Node[][];
+  private gridNodes: Node[][];
 
   constructor(aParams: IGridConstructor) {
     // Set the general properties
@@ -30,7 +30,7 @@ export class Grid {
     }
 
     // Create and generate the matrix
-    this.grid = this.buildGridWithNodes(
+    this.gridNodes = this.buildGridWithNodes(
       aParams.matrix || undefined,
       this.width,
       this.height,
@@ -109,7 +109,7 @@ export class Grid {
    * @param position [position on the grid]
    */
   public getNodeAt(position: IPoint): Node {
-    return this.grid[position.y][position.x];
+    return this.gridNodes[position.y][position.x];
   }
 
   /**
@@ -117,7 +117,7 @@ export class Grid {
    * @param position [position on the grid]
    */
   public isWalkableAt(position: IPoint): boolean {
-    return this.grid[position.y][position.x].getIsWalkable();
+    return this.gridNodes[position.y][position.x].getIsWalkable();
   }
 
   /**
@@ -169,21 +169,28 @@ export class Grid {
   }
 
   public setGrid(newGrid: Node[][]): void {
-    this.grid = newGrid;
+    this.gridNodes = newGrid;
   }
 
   /**
    * Reset the grid
    */
   public resetGrid(): void {
-    for (let y = 0; y < this.grid.length; y++) {
-      for (let x = 0; x < this.grid[y].length; x++) {
-        this.grid[y][x].setIsOnClosedList(false);
-        this.grid[y][x].setIsOnOpenList(false);
-        this.grid[y][x].setParent(undefined);
-        this.grid[y][x].setFGHValuesToZero();
+    for (let y = 0; y < this.gridNodes.length; y++) {
+      for (let x = 0; x < this.gridNodes[y].length; x++) {
+        this.gridNodes[y][x].setIsOnClosedList(false);
+        this.gridNodes[y][x].setIsOnOpenList(false);
+        this.gridNodes[y][x].setParent(undefined);
+        this.gridNodes[y][x].setFGHValuesToZero();
       }
     }
+  }
+
+  /**
+   * Get all the nodes of the grid.
+   */
+  public getGridNodes(): Node[][] {
+    return this.gridNodes;
   }
 
   public clone(): Node[][] {
@@ -199,7 +206,7 @@ export class Grid {
           xPos: x,
           yPos: y
         });
-        newGrid[y][x].setIsWalkable(this.grid[y][x].getIsWalkable());
+        newGrid[y][x].setIsWalkable(this.gridNodes[y][x].getIsWalkable());
 
         id++;
       }

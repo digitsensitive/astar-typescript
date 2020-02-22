@@ -1,5 +1,5 @@
 /**
- * @description Main and only scene, where we display our matrix and path.
+ * @description Main Scene
  * @author Digitsensitive <digit.sensitivee@gmail.com>
  * @copyright 2019 - 2020 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
@@ -7,28 +7,31 @@
 
 import { AStarFinder } from '../../lib/astar';
 import { DatGuiService } from '../services/dat-gui.service';
+import { GameObject } from '../objects/gameobject';
 
 export class MainScene extends Phaser.Scene {
   // variables
   private currentPathObject: number;
-  private endPosition: { x: number; y: number };
+  private goalPosition: Phaser.Math.Vector2;
   private gridHeight: number;
   private gridWidth: number;
   private startPosition: Phaser.Math.Vector2;
   private tileSize: number;
-  private heuristic: any;
-  private densityOfObstacles: number;
 
   // game objects
-  private endObject: Phaser.GameObjects.Rectangle;
-  private gridObject: Phaser.GameObjects.Grid;
-  private pathwayAStarObjects: Phaser.GameObjects.Rectangle[];
-  private startObject: Phaser.GameObjects.Rectangle;
-  private wallObjects: Phaser.GameObjects.Rectangle[];
+  private endObject: GameObject;
+  private gameGrid: Phaser.GameObjects.Grid;
+  private aStarPathwayObjects: GameObject[];
+  private startObject: GameObject;
+  private surroundingNodes: GameObject[];
+  private wallObjects: GameObject[];
 
-  // a-star
+  // astar
+  private aMatrix: number[][];
   private aStarInstance: AStarFinder;
-  private pathwayAStar: number[][];
+  private diagonalMovement: boolean;
+  private heuristic: any;
+  private aStarPathway: number[][];
 
   // dat gui service
   private datGuiServiceInstance: DatGuiService;
@@ -40,39 +43,48 @@ export class MainScene extends Phaser.Scene {
   }
 
   init(): void {
-    // variables
+    // init variables
     this.currentPathObject = 0;
-    this.densityOfObstacles = 0.1;
-    this.tileSize = 30;
-    this.gridHeight = this.sys.canvas.height / this.tileSize;
-    this.gridWidth = this.sys.canvas.width / this.tileSize;
+    this.tileSize = 60;
+    this.gridHeight = Math.floor(this.sys.canvas.height / this.tileSize);
+    this.gridWidth = Math.floor(this.sys.canvas.width / this.tileSize);
     this.startPosition = new Phaser.Math.Vector2(
       Phaser.Math.RND.between(0, this.gridWidth - 1),
       Phaser.Math.RND.between(0, this.gridHeight - 1)
     );
 
-    this.endPosition = {
-      x: Phaser.Math.RND.between(0, this.gridWidth - 1),
-      y: Phaser.Math.RND.between(0, this.gridHeight - 1)
-    };
-    this.heuristic = 'Manhatten';
+    this.goalPosition = new Phaser.Math.Vector2(
+      Phaser.Math.RND.between(0, this.gridWidth - 1),
+      Phaser.Math.RND.between(0, this.gridHeight - 1)
+    );
 
+    // init astar variables
+    this.aMatrix = [];
+    for (let i = 0; i < this.gridHeight; i++) {
+      this.aMatrix[i] = Array<number>(this.gridWidth).fill(0);
+    }
+    this.diagonalMovement = false;
+    this.heuristic = 'Manhatten';
     this.aStarInstance = new AStarFinder({
       grid: {
-        width: this.gridWidth,
-        height: this.gridHeight,
-        densityOfObstacles: this.densityOfObstacles
+        matrix: this.aMatrix
       },
       heuristicFunction: this.heuristic,
+      diagonalAllowed: this.diagonalMovement,
       includeEndNode: false,
       includeStartNode: false
     });
 
-    this.pathwayAStar = this.aStarInstance.findPath(
+    this.aStarPathway = this.aStarInstance.findPath(
       this.startPosition,
-      this.endPosition
+      this.goalPosition
     );
 
+    this.initDatGui();
+    this.initInput();
+  }
+
+  private initDatGui(): void {
     // dat gui service
     this.datGuiServiceInstance = new DatGuiService();
 
@@ -86,8 +98,8 @@ export class MainScene extends Phaser.Scene {
       value => {
         this.startPosition.x = value;
         this.startObject.x = value * this.tileSize + 1;
-        this.destroyPath();
-        this.renewPath();
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
       }
     );
     this.datGuiServiceInstance.addNumberController(
@@ -99,52 +111,39 @@ export class MainScene extends Phaser.Scene {
       value => {
         this.startPosition.y = value;
         this.startObject.y = value * this.tileSize + 1;
-        this.destroyPath();
-        this.renewPath();
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
       }
     );
     this.datGuiServiceInstance.addFolder('End Position');
     this.datGuiServiceInstance.addNumberController(
       'X',
-      this.endPosition,
+      this.goalPosition,
       'x',
       true,
       { min: 0, max: this.gridWidth - 1, step: 1 },
       value => {
-        this.endPosition.x = value;
+        this.goalPosition.x = value;
         this.endObject.x = value * this.tileSize + 1;
-        this.destroyPath();
-        this.renewPath();
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
       }
     );
     this.datGuiServiceInstance.addNumberController(
       'Y',
-      this.endPosition,
+      this.goalPosition,
       'y',
       true,
       { min: 0, max: this.gridHeight - 1, step: 1 },
       value => {
-        this.endPosition.y = value;
+        this.goalPosition.y = value;
         this.endObject.y = value * this.tileSize + 1;
-        this.destroyPath();
-        this.renewPath();
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
       }
     );
     this.datGuiServiceInstance.addFolder('A* Properties');
-    this.datGuiServiceInstance.addNumberController(
-      'Density',
-      this,
-      'densityOfObstacles',
-      true,
-      { min: 0, max: 10, step: 0.01 },
-      value => {
-        this.densityOfObstacles = value;
-        this.destroyPath();
-        this.resetAStarInstance();
-        this.destroyAndResetObstacles();
-        this.renewPath();
-      }
-    );
+
     this.datGuiServiceInstance.addController(
       'Heuristic',
       this,
@@ -152,18 +151,59 @@ export class MainScene extends Phaser.Scene {
       true,
       value => {
         this.heuristic = value;
-        this.resetHeuristic();
-        this.destroyPath();
-        this.renewPath();
+        this.aStarInstance.setHeuristic(this.heuristic);
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
       },
       ['Manhatten', 'Euclidean', 'Chebyshev', 'Octile']
     );
   }
 
+  private initInput(): void {
+    this.input.on(
+      'pointerdown',
+      pointer => {
+        let x = Math.floor(pointer.x / this.tileSize);
+        let y = Math.floor(pointer.y / this.tileSize);
+
+        if (this.aMatrix[y][x] === 1) {
+          this.aMatrix[y][x] = 0;
+        } else {
+          this.aMatrix[y][x] = 1;
+          this.wallObjects.push(
+            new GameObject({
+              scene: this,
+              x: x * this.tileSize + 1,
+              y: y * this.tileSize + 1,
+              key: 'node',
+              realSize: this.tileSize - 2,
+              tint: 0x156c9e
+            }).setInteractive()
+          );
+        }
+
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
+      },
+      this
+    );
+
+    this.input.on('gameobjectdown', (pointer, gameObject) => {
+      let x = Math.floor(pointer.x / this.tileSize);
+      let y = Math.floor(pointer.y / this.tileSize);
+      this.aMatrix[y][x] = 0;
+      gameObject.destroy();
+      this.destroyPathAndSurroundingNodes();
+      this.resetAStarInstance();
+    });
+  }
+
+  /**
+   * This function will create all our game objects.
+   */
   create(): void {
-    // game objects
-    // create the grid
-    this.gridObject = this.add
+    // Create our game grid
+    this.gameGrid = this.add
       .grid(
         0,
         0,
@@ -171,145 +211,115 @@ export class MainScene extends Phaser.Scene {
         this.sys.canvas.height,
         this.tileSize,
         this.tileSize,
-        0xc0dbe2,
+        0xdff0f5,
         1,
-        0xdbebef,
+        0xebf8fc,
         1
       )
       .setOrigin(0, 0);
 
-    // create the wall objects
-    this.wallObjects = [];
-    let mapArray = this.aStarInstance.getGridClone();
+    // Create start and end object
+    this.startObject = new GameObject({
+      scene: this,
+      x: this.startPosition.x * this.tileSize + 1,
+      y: this.startPosition.y * this.tileSize + 1,
+      key: 'node',
+      realSize: this.tileSize - 2,
+      tint: 0x9e156e
+    });
 
-    for (let y = 0; y < mapArray.length; y++) {
-      for (let x = 0; x < mapArray[y].length; x++) {
-        if (!mapArray[y][x].getIsWalkable()) {
-          this.wallObjects.push(
-            this.add
-              .rectangle(
-                x * this.tileSize + 1,
-                y * this.tileSize + 1,
-                this.tileSize - 2,
-                this.tileSize - 2,
-                0x2a96b5,
-                1
-              )
-              .setOrigin(0, 0)
-          );
-        }
-      }
-    }
+    this.endObject = new GameObject({
+      scene: this,
+      x: this.goalPosition.x * this.tileSize + 1,
+      y: this.goalPosition.y * this.tileSize + 1,
+      key: 'node',
+      realSize: this.tileSize - 2,
+      tint: 0x159e70
+    });
 
-    // create start and end object
-    this.startObject = this.add
-      .rectangle(
-        this.startPosition.x * this.tileSize + 1,
-        this.startPosition.y * this.tileSize + 1,
-        this.tileSize - 2,
-        this.tileSize - 2,
-        0x262425,
-        1
-      )
-      .setOrigin(0, 0);
-    this.endObject = this.add
-      .rectangle(
-        this.endPosition.x * this.tileSize + 1,
-        this.endPosition.y * this.tileSize + 1,
-        this.tileSize - 2,
-        this.tileSize - 2,
-        0x262425,
-        1
-      )
-      .setOrigin(0, 0);
+    this.surroundingNodes = [];
 
-    // create the astar path
-    this.pathwayAStarObjects = [];
+    // Create the astar path
+    this.aStarPathwayObjects = [];
     this.time.addEvent({
-      delay: 100,
+      delay: 0,
       callback: this.drawNextObjectOfPath,
       callbackScope: this,
       loop: true
     });
+
+    this.wallObjects = [];
   }
 
-  update(): void {}
+  private destroyPathAndSurroundingNodes(): void {
+    // Destroy path objects
+    for (let i = 0; i < this.aStarPathwayObjects.length; i++) {
+      this.aStarPathwayObjects[i].destroy();
+    }
+    this.aStarPathwayObjects = [];
+
+    // Destroy surrounding nodes
+    for (let i = 0; i < this.surroundingNodes.length; i++) {
+      this.surroundingNodes[i].destroy();
+    }
+    this.surroundingNodes = [];
+  }
 
   private resetAStarInstance(): void {
     this.aStarInstance = new AStarFinder({
       grid: {
-        width: this.gridWidth,
-        height: this.gridHeight,
-        densityOfObstacles: this.densityOfObstacles
+        matrix: this.aMatrix
       },
       heuristicFunction: this.heuristic,
+      diagonalAllowed: this.diagonalMovement,
       includeEndNode: false,
       includeStartNode: false
     });
-  }
 
-  private destroyPath(): void {
-    for (let i = 0; i < this.pathwayAStarObjects.length; i++) {
-      this.pathwayAStarObjects[i].destroy();
-    }
-    this.pathwayAStarObjects = [];
-  }
-
-  private renewPath(): void {
-    this.pathwayAStar = this.aStarInstance.findPath(
+    this.aStarPathway = this.aStarInstance.findPath(
       this.startPosition,
-      this.endPosition
+      this.goalPosition
     );
     this.currentPathObject = 0;
   }
 
-  private resetHeuristic(): void {
-    this.aStarInstance.setHeuristic(this.heuristic);
-  }
-
   private drawNextObjectOfPath(): void {
-    if (this.currentPathObject < this.pathwayAStar.length) {
-      this.pathwayAStarObjects.push(
-        this.add
-          .rectangle(
-            this.pathwayAStar[this.currentPathObject][0] * this.tileSize + 1,
-            this.pathwayAStar[this.currentPathObject][1] * this.tileSize + 1,
-            this.tileSize - 2,
-            this.tileSize - 2,
-            0x74e1e3,
-            1
-          )
-          .setOrigin(0, 0)
+    if (this.currentPathObject < this.aStarPathway.length) {
+      // get surround nodes
+      let getNodes = this.aStarInstance.getGrid().getSurroundingNodes(
+        {
+          x: this.aStarPathway[this.currentPathObject][0],
+          y: this.aStarPathway[this.currentPathObject][1]
+        },
+        false
+      );
+
+      for (let node of getNodes) {
+        this.surroundingNodes.push(
+          new GameObject({
+            scene: this,
+            x: node.position.x * this.tileSize + 1,
+            y: node.position.y * this.tileSize + 1,
+            key: 'node',
+            realSize: this.tileSize - 2,
+            tint: 0x24e1e3,
+            alpha: node.getGValue() / 100
+          })
+        );
+      }
+
+      this.aStarPathwayObjects.push(
+        new GameObject({
+          scene: this,
+          x: this.aStarPathway[this.currentPathObject][0] * this.tileSize + 1,
+          y: this.aStarPathway[this.currentPathObject][1] * this.tileSize + 1,
+          key: 'node',
+          realSize: this.tileSize - 2,
+          tint: 0xffffff
+        })
       );
     }
+
     this.currentPathObject++;
-  }
-
-  private destroyAndResetObstacles(): void {
-    for (let i = 0; i < this.wallObjects.length; i++) {
-      this.wallObjects[i].destroy();
-    }
-
-    this.wallObjects = [];
-    let mapArray = this.aStarInstance.getGridClone();
-
-    for (let y = 0; y < mapArray.length; y++) {
-      for (let x = 0; x < mapArray[y].length; x++) {
-        if (!mapArray[y][x].getIsWalkable()) {
-          this.wallObjects.push(
-            this.add
-              .rectangle(
-                x * this.tileSize + 1,
-                y * this.tileSize + 1,
-                this.tileSize - 2,
-                this.tileSize - 2,
-                0x2a96b5,
-                1
-              )
-              .setOrigin(0, 0)
-          );
-        }
-      }
-    }
   }
 }

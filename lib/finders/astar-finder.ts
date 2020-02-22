@@ -19,7 +19,7 @@ import { Heuristic } from '../types/astar.types';
 
 export class AStarFinder {
   // Grid
-  public grid: Grid;
+  private grid: Grid;
 
   // Lists
   private closedList: Node[];
@@ -191,5 +191,12 @@ export class AStarFinder {
    */
   public getGridClone(): Node[][] {
     return this.grid.clone();
+  }
+
+  /**
+   * Get the current grid
+   */
+  public getGrid(): Grid {
+    return this.grid;
   }
 }
