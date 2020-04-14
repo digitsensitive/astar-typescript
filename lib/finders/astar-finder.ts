@@ -30,7 +30,7 @@ export class AStarFinder {
   private heuristic: Heuristic;
   readonly includeStartNode: boolean;
   readonly includeEndNode: boolean;
-  protected weight: number;
+  private weight: number;
 
   constructor(aParams: IAStarFinderConstructor) {
     // Create grid
@@ -187,6 +187,14 @@ export class AStarFinder {
    */
   public setHeuristic(newHeuristic: Heuristic): void {
     this.heuristic = newHeuristic;
+  }
+
+  /**
+   * Set the weight for the heuristic function.
+   * @param newWeight
+   */
+  public setWeight(newWeight: number): void {
+    this.weight = newWeight;
   }
 
   /**

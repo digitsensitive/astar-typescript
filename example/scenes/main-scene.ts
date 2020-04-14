@@ -31,6 +31,7 @@ export class MainScene extends Phaser.Scene {
   private aStarInstance: AStarFinder;
   private diagonalMovement: boolean;
   private heuristic: any;
+  private weight: number;
   private aStarPathway: number[][];
 
   // dat gui service
@@ -65,11 +66,13 @@ export class MainScene extends Phaser.Scene {
     }
     this.diagonalMovement = false;
     this.heuristic = 'Manhatten';
+    this.weight = 1;
     this.aStarInstance = new AStarFinder({
       grid: {
         matrix: this.aMatrix
       },
       heuristic: this.heuristic,
+      weight: this.weight,
       diagonalAllowed: this.diagonalMovement,
       includeEndNode: false,
       includeStartNode: false
@@ -156,6 +159,20 @@ export class MainScene extends Phaser.Scene {
         this.resetAStarInstance();
       },
       ['Manhatten', 'Euclidean', 'Chebyshev', 'Octile']
+    );
+
+    this.datGuiServiceInstance.addNumberController(
+      'Weight',
+      this,
+      'weight',
+      true,
+      { min: 0, max: 1, step: 0.01 },
+      (value) => {
+        this.weight = value;
+        this.aStarInstance.setWeight(this.weight);
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
+      }
     );
   }
 
