@@ -1,5 +1,5 @@
 /**
- * @description Heuristic functions
+ * @description Core Heuristic
  * Resources:
  * http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
  * https://en.wikipedia.org/wiki/Taxicab_geometry
