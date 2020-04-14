@@ -193,24 +193,26 @@ export class Grid {
     return this.gridNodes;
   }
 
+  /**
+   * Get a clone of the grid
+   */
   public clone(): Node[][] {
-    let newGrid: Node[][] = [];
+    let cloneGrid: Node[][] = [];
     let id: number = 0;
 
-    // Generate an empty matrix
     for (let y = 0; y < this.height; y++) {
-      newGrid[y] = [];
+      cloneGrid[y] = [];
       for (let x = 0; x < this.width; x++) {
-        newGrid[y][x] = new Node({
+        cloneGrid[y][x] = new Node({
           id: id,
           xPos: x,
-          yPos: y
+          yPos: y,
+          walkable: this.gridNodes[y][x].getIsWalkable()
         });
-        newGrid[y][x].setIsWalkable(this.gridNodes[y][x].getIsWalkable());
 
         id++;
       }
     }
-    return newGrid;
+    return cloneGrid;
   }
 }

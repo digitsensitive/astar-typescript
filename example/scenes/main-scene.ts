@@ -280,6 +280,7 @@ export class MainScene extends Phaser.Scene {
       this.startPosition,
       this.goalPosition
     );
+
     this.currentPathObject = 0;
   }
 
