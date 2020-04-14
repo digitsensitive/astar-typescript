@@ -95,7 +95,7 @@ export class MainScene extends Phaser.Scene {
       'x',
       true,
       { min: 0, max: this.gridWidth - 1, step: 1 },
-      value => {
+      (value) => {
         this.startPosition.x = value;
         this.startObject.x = value * this.tileSize + 1;
         this.destroyPathAndSurroundingNodes();
@@ -108,7 +108,7 @@ export class MainScene extends Phaser.Scene {
       'y',
       true,
       { min: 0, max: this.gridHeight - 1, step: 1 },
-      value => {
+      (value) => {
         this.startPosition.y = value;
         this.startObject.y = value * this.tileSize + 1;
         this.destroyPathAndSurroundingNodes();
@@ -122,7 +122,7 @@ export class MainScene extends Phaser.Scene {
       'x',
       true,
       { min: 0, max: this.gridWidth - 1, step: 1 },
-      value => {
+      (value) => {
         this.goalPosition.x = value;
         this.endObject.x = value * this.tileSize + 1;
         this.destroyPathAndSurroundingNodes();
@@ -135,7 +135,7 @@ export class MainScene extends Phaser.Scene {
       'y',
       true,
       { min: 0, max: this.gridHeight - 1, step: 1 },
-      value => {
+      (value) => {
         this.goalPosition.y = value;
         this.endObject.y = value * this.tileSize + 1;
         this.destroyPathAndSurroundingNodes();
@@ -149,7 +149,7 @@ export class MainScene extends Phaser.Scene {
       this,
       'heuristic',
       true,
-      value => {
+      (value) => {
         this.heuristic = value;
         this.aStarInstance.setHeuristic(this.heuristic);
         this.destroyPathAndSurroundingNodes();
@@ -162,7 +162,7 @@ export class MainScene extends Phaser.Scene {
   private initInput(): void {
     this.input.on(
       'pointerdown',
-      pointer => {
+      (pointer) => {
         let x = Math.floor(pointer.x / this.tileSize);
         let y = Math.floor(pointer.y / this.tileSize);
 
