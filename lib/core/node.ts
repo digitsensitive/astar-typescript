@@ -69,37 +69,52 @@ export class Node {
     this.fValue = this.gValue = this.hValue = 0;
   }
 
+  /**
+   * Getter functions
+   */
   public getFValue(): number {
     return this.fValue;
   }
+
   public getGValue(): number {
     return this.gValue;
   }
+
   public getHValue(): number {
     return this.hValue;
   }
+
   public getParent(): Node {
     return this.parentNode;
   }
+
   public getIsOnClosedList(): boolean {
     return this.isOnClosedList;
   }
+
   public getIsOnOpenList(): boolean {
     return this.isOnOpenList;
   }
+
   public getIsWalkable(): boolean {
     return this.isWalkable;
   }
 
-  public setParent(_parent: Node): void {
-    this.parentNode = _parent;
+  /**
+   * Setter functions
+   */
+  public setParent(parent: Node): void {
+    this.parentNode = parent;
   }
+
   public setIsOnClosedList(isOnClosedList: boolean): void {
     this.isOnClosedList = isOnClosedList;
   }
+
   public setIsOnOpenList(isOnOpenList: boolean): void {
     this.isOnOpenList = isOnOpenList;
   }
+
   public setIsWalkable(isWalkable: boolean): void {
     this.isWalkable = isWalkable;
   }
