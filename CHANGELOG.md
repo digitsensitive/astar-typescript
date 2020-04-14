@@ -3,11 +3,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.X.X] - 2020-XX-XX
+
+### Added
+
+### Changed
+- Remove unnecessary `console.log` in `astar-finder.ts`
+
+
 ## [1.1.6] - 2020-02-22
+
 ### Added
 - Update `example`
 
+---
+
 ## [1.1.4] - 2020-02-21
+
 ### Added
 - Add `example` folder
 
@@ -16,7 +28,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Update `CHANGELOG.md`
 - Small changes
 
+---
+
 ## [1.1.3] - 2020-02-16
+
 ### Added
 - Add `tsconfig.json`file
 - Add `typescript 3.5.2` as `devDependencies`
@@ -38,7 +53,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Bug that empty array could go into the main while loop of the astar-finder
 - Path could only be created once (https://github.com/digitsensitive/astar-typescript/issues/2)
 
+---
+
 ## [1.0.0] - 2019-07-26
+
 ### Added
 - Example folder with an integration of this library into [Phaser 3](https://phaser.io/phaser3)
 - Separate interfaces into own file `astar-inferfaces.ts`
@@ -52,7 +70,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - New functionality to include or exclude start and end node when backtracing
 - Add interface `IPoint` 
 
+---
+
 ## [0.0.5] - 2019-07-17
+
 ### Added
 - Add a `CHANGELOG.md` file
 - Add [Prettier](https://github.com/prettier/prettier) configuration file `.prettierrc`
