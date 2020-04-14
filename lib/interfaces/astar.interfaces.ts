@@ -10,16 +10,8 @@ import { Heuristic } from '../types/astar.types';
 export interface IAStarFinderConstructor {
   grid: IGridConstructor;
   diagonalAllowed?: boolean;
-  heuristicFunction?: Heuristic;
+  heuristic?: Heuristic;
   weight?: number;
-  includeStartNode?: boolean;
-  includeEndNode?: boolean;
-}
-
-export interface IDijkstrasFinderConstructor {
-  grid: IGridConstructor;
-  diagonalAllowed?: boolean;
-  heuristicFunction?: Heuristic;
   includeStartNode?: boolean;
   includeEndNode?: boolean;
 }

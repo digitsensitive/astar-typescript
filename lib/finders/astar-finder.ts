@@ -8,7 +8,7 @@
 import * as _ from 'lodash';
 
 import { backtrace } from '../core/util';
-import { heuristicFunction } from '../core/heuristic';
+import { calculateHeuristic } from '../core/heuristic';
 import { Grid } from '../core/grid';
 import {
   IAStarFinderConstructor,
@@ -27,7 +27,7 @@ export class AStarFinder {
 
   // Pathway variables
   readonly diagonalAllowed: boolean;
-  private heuristicFunction: Heuristic;
+  private heuristic: Heuristic;
   readonly includeStartNode: boolean;
   readonly includeEndNode: boolean;
   protected weight: number;
@@ -45,17 +45,22 @@ export class AStarFinder {
     this.closedList = [];
     this.openList = [];
 
-    // Init pathway variables
+    // Set diagonal boolean
     this.diagonalAllowed =
       aParams.diagonalAllowed !== undefined ? aParams.diagonalAllowed : true;
-    this.heuristicFunction =
-      aParams.heuristicFunction !== undefined
-        ? aParams.heuristicFunction
-        : 'Manhatten';
+
+    // Set heuristic function
+    this.heuristic = aParams.heuristic ? aParams.heuristic : 'Manhatten';
+
+    // Set if start node included
     this.includeStartNode =
       aParams.includeStartNode !== undefined ? aParams.includeStartNode : true;
+
+    // Set if end node included
     this.includeEndNode =
       aParams.includeEndNode !== undefined ? aParams.includeEndNode : true;
+
+    // Set weight
     this.weight = aParams.weight || 1;
   }
 
@@ -98,10 +103,10 @@ export class AStarFinder {
           this.closedList.push(node);
         } else {
           // OK, this node is walkable
-          // Calculate the H value for it
+          // Calculate the H value with the corresponding heuristic function
           node.setHValue(
-            heuristicFunction(
-              this.heuristicFunction,
+            calculateHeuristic(
+              this.heuristic,
               node.position,
               endNode.position,
               this.weight
@@ -181,7 +186,7 @@ export class AStarFinder {
    * @param newHeuristic
    */
   public setHeuristic(newHeuristic: Heuristic): void {
-    this.heuristicFunction = newHeuristic;
+    this.heuristic = newHeuristic;
   }
 
   /**

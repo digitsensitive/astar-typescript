@@ -21,7 +21,7 @@ import { Heuristic } from '../types/astar.types';
  * @param pos1
  * @param weight
  */
-export function heuristicFunction(
+export function calculateHeuristic(
   heuristicFunction: Heuristic,
   pos0,
   pos1,

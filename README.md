@@ -154,7 +154,12 @@ this.aStarInstance = new AStarFinder({
 });
 ```
 
-Adjust the `weight`:
+It is possible to adjust the `weight` of the heuristic function.
+For example if you use 0, every heuristic function will return zero.
+That is how you can turn A* into Dijkstra’s Algorithm.
+Depending on the `weight` value you can decide if you prefer speed or accuracy.
+The lower the `weight` is, the lower will the heuristic function get, which will
+make the A* slower.
 
 ``` ts
 this.aStarInstance = new AStarFinder({

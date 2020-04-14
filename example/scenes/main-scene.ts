@@ -69,7 +69,7 @@ export class MainScene extends Phaser.Scene {
       grid: {
         matrix: this.aMatrix
       },
-      heuristicFunction: this.heuristic,
+      heuristic: this.heuristic,
       diagonalAllowed: this.diagonalMovement,
       includeEndNode: false,
       includeStartNode: false
@@ -270,7 +270,7 @@ export class MainScene extends Phaser.Scene {
       grid: {
         matrix: this.aMatrix
       },
-      heuristicFunction: this.heuristic,
+      heuristic: this.heuristic,
       diagonalAllowed: this.diagonalMovement,
       includeEndNode: false,
       includeStartNode: false
