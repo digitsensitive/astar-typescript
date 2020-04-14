@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Remove unnecessary `console.log` in `astar-finder.ts`
 
+---
 
 ## [1.1.6] - 2020-02-22
 
