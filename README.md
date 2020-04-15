@@ -184,6 +184,13 @@ this.aStarInstance = new AStarFinder({
 });
 ```
 
+## Prettier
+
+This library uses [Prettier](https://github.com/prettier/prettier).
+The configuration used can be seen in the `.prettierrc` file.
+More informations about the format options can be found [here](https://prettier.io/docs/en/options.html).
+
+
 ## License
 
 [MIT License](https://opensource.org/licenses/mit-license.php)
