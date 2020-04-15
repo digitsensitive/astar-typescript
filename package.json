@@ -1,6 +1,6 @@
 {
   "name": "astar-typescript",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A*(a-star) pathfinding in TypeScript",
   "keywords": [
     "A-star",
@@ -25,6 +25,9 @@
   },
   "devDependencies": {
     "typescript": "3.8.3"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",

@@ -4,11 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [1.X.X] - 2020-XX-XX
-
 ### Added
+### Changed
+### Fixed
+
+---
+
+## [1.1.7] - 2020-04-15
 
 ### Changed
 - Remove unnecessary `console.log` in `astar-finder.ts`
+- Small changes of the prettier configuration
+- Small changes in the README.md file
+- Remove unnecesary code comments
+- Update devDependencies and dependencies
 
 ---
 
