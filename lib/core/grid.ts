@@ -53,8 +53,7 @@ export class Grid {
       for (let x = 0; x < width; x++) {
         newGrid[y][x] = new Node({
           id: id,
-          xPos: x,
-          yPos: y
+          position: { x: x, y: y }
         });
 
         id++;
@@ -198,8 +197,7 @@ export class Grid {
       for (let x = 0; x < this.width; x++) {
         cloneGrid[y][x] = new Node({
           id: id,
-          xPos: x,
-          yPos: y,
+          position: { x: x, y: y },
           walkable: this.gridNodes[y][x].getIsWalkable()
         });
 

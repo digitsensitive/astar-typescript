@@ -14,7 +14,7 @@ export class Node {
 
   constructor(aParams: INodeConstructor) {
     this.id = aParams.id;
-    this.position = { x: aParams.xPos, y: aParams.yPos };
+    this.position = aParams.position;
 
     this.hValue = 0;
     this.gValue = 0;

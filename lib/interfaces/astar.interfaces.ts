@@ -18,8 +18,7 @@ export interface IGridConstructor {
 
 export interface INodeConstructor {
   id: number;
-  xPos: number;
-  yPos: number;
+  position: IPoint;
   walkable?: boolean;
 }
 
