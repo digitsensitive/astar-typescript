@@ -1,18 +1,9 @@
-/**
- * @description Core Node
- * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2017 - 2020 Digitsensitive
- * @license {@link https://opensource.org/licenses/MIT|MIT License}
- */
-
 import { INodeConstructor, IPoint } from '../interfaces/astar.interfaces';
 
 export class Node {
-  //  General properties
   readonly id: number;
   readonly position: IPoint;
 
-  // Specific properties
   private fValue: number;
   private gValue: number;
   private hValue: number;
@@ -22,11 +13,9 @@ export class Node {
   private isWalkable: boolean;
 
   constructor(aParams: INodeConstructor) {
-    // Set general properties
     this.id = aParams.id;
     this.position = { x: aParams.xPos, y: aParams.yPos };
 
-    // Set specific properties
     this.hValue = 0;
     this.gValue = 0;
     this.fValue = 0;

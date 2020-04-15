@@ -1,10 +1,3 @@
-/**
- * @description Core Util
- * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2017 - 2020 Digitsensitive
- * @license {@link https://opensource.org/licenses/MIT|MIT License}
- */
-
 import { Node } from './node';
 
 /**
@@ -20,7 +13,7 @@ export function backtrace(
   // Init empty path
   let path: number[][] = [];
 
-  let currentNode;
+  let currentNode: Node;
   if (includeEndNode) {
     // Attach the end node to be the current node
     currentNode = node;
