@@ -44,7 +44,7 @@ export class Grid {
     height: number,
     densityOfObstacles?: number
   ): Node[][] {
-    let newGrid: Node[][] = [];
+    const newGrid: Node[][] = [];
     let id: number = 0;
 
     // Generate an empty matrix
@@ -67,7 +67,7 @@ export class Grid {
     if (matrix === undefined) {
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-          let rndNumber = Math.floor(Math.random() * 10) + 1;
+          const rndNumber = Math.floor(Math.random() * 10) + 1;
           if (rndNumber > 10 - densityOfObstacles) {
             newGrid[y][x].setIsWalkable(false);
           } else {
@@ -135,7 +135,7 @@ export class Grid {
     currentPosition: IPoint,
     diagnonalMovementAllowed: boolean
   ): Node[] {
-    let surroundingNodes: Node[] = [];
+    const surroundingNodes: Node[] = [];
 
     for (var y = currentPosition.y - 1; y <= currentPosition.y + 1; y++) {
       for (var x = currentPosition.x - 1; x <= currentPosition.x + 1; x++) {
@@ -189,7 +189,7 @@ export class Grid {
    * Get a clone of the grid
    */
   public clone(): Node[][] {
-    let cloneGrid: Node[][] = [];
+    const cloneGrid: Node[][] = [];
     let id: number = 0;
 
     for (let y = 0; y < this.height; y++) {

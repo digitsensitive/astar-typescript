@@ -11,7 +11,7 @@ export function backtrace(
   includeEndNode: boolean
 ): number[][] {
   // Init empty path
-  let path: number[][] = [];
+  const path: number[][] = [];
 
   let currentNode: Node;
   if (includeEndNode) {

@@ -65,8 +65,8 @@ export class AStarFinder {
     // Reset grid
     this.grid.resetGrid();
 
-    let startNode = this.grid.getNodeAt(startPosition);
-    let endNode = this.grid.getNodeAt(endPosition);
+    const startNode = this.grid.getNodeAt(startPosition);
+    const endNode = this.grid.getNodeAt(endPosition);
 
     // Break if start and/or end position is/are not walkable
     if (
@@ -112,7 +112,7 @@ export class AStarFinder {
     // As long the open list is not empty, continue searching a path
     while (this.openList.length !== 0) {
       // Get node with lowest f value
-      let currentNode = _.minBy(this.openList, (o) => {
+      const currentNode = _.minBy(this.openList, (o) => {
         return o.getFValue();
       });
 
@@ -129,14 +129,14 @@ export class AStarFinder {
       }
 
       // Get neighbors
-      let neighbors = this.grid.getSurroundingNodes(
+      const neighbors = this.grid.getSurroundingNodes(
         currentNode.position,
         this.diagonalAllowed
       );
 
       // Loop through all the neighbors
       for (let i in neighbors) {
-        let neightbor = neighbors[i];
+        const neightbor = neighbors[i];
 
         // Continue if node on closed list
         if (neightbor.getIsOnClosedList()) {
@@ -144,7 +144,7 @@ export class AStarFinder {
         }
 
         // Calculate the g value of the neightbor
-        let nextGValue =
+        const nextGValue =
           currentNode.getGValue() +
           (neightbor.position.x !== currentNode.position.x ||
           neightbor.position.y! == currentNode.position.y

@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [1.X.X] - 2020-XX-XX
 ### Added
 ### Changed
+- Introduce const for let where possible
+- Small changes in LICENSE and README
+
 ### Fixed
 
 ---

@@ -23,8 +23,8 @@ export function calculateHeuristic(
   pos1,
   weight
 ): number {
-  let dx = Math.abs(pos1.x - pos0.x);
-  let dy = Math.abs(pos1.y - pos0.y);
+  const dx = Math.abs(pos1.x - pos0.x);
+  const dy = Math.abs(pos1.y - pos0.y);
 
   switch (heuristicFunction) {
     case 'Manhatten':
