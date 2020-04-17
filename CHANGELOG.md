@@ -6,10 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [1.X.X] - 2020-XX-XX
 ### Added
 ### Changed
+### Fixed
+
+---
+
+## [1.1.9] - 2020-04-17
+
+### Changed
 - Introduce const for let where possible
 - Small changes in LICENSE and README
 
 ### Fixed
+- Fixes failing builds with a fresh install (Thank you @krazyjakee)
 
 ---
 
