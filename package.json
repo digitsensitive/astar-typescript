@@ -17,6 +17,7 @@
   "main": "dist/astar.js",
   "types": "dist/astar.d.ts",
   "scripts": {
+    "prepare": "tsc",
     "build": "tsc",
     "run-example": "cd example && yarn install && yarn run dev"
   },
