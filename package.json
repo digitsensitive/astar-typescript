@@ -22,7 +22,7 @@
     "run-example": "cd example && yarn install && yarn run dev"
   },
   "dependencies": {
-    "lodash": "4.17.15"
+    "lodash-es": "^4.17.15"
   },
   "devDependencies": {
     "typescript": "3.8.3"

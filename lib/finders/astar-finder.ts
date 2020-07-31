@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { minBy, remove } from 'lodash-es';
 
 import { backtrace } from '../core/util';
 import { calculateHeuristic } from '../core/heuristic';
@@ -112,13 +112,13 @@ export class AStarFinder {
     // As long the open list is not empty, continue searching a path
     while (this.openList.length !== 0) {
       // Get node with lowest f value
-      const currentNode = _.minBy(this.openList, (o) => {
+      const currentNode = minBy(this.openList, (o) => {
         return o.getFValue();
       });
 
       // Move current node from open list to closed list
       currentNode.setIsOnOpenList(false);
-      _.remove(this.openList, currentNode);
+      remove(this.openList, currentNode);
 
       currentNode.setIsOnClosedList(true);
       this.closedList.push(currentNode);
