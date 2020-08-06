@@ -1,1 +1,6 @@
-export type Heuristic = 'Manhatten' | 'Euclidean' | 'Chebyshev' | 'Octile';
+export type Heuristic =
+  | 'Manhatten'
+  | 'Manhattan'
+  | 'Euclidean'
+  | 'Chebyshev'
+  | 'Octile';

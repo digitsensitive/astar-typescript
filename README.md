@@ -142,7 +142,7 @@ this.aStarInstance = new AStarFinder({
 });
 ```
 
-Set the `heuristic function` (Manhatten, Euclidean, Chebyshev or Octile):
+Set the `heuristic function` (Manhattan, Euclidean, Chebyshev or Octile):
 
 ``` ts
 this.aStarInstance = new AStarFinder({
@@ -150,7 +150,7 @@ this.aStarInstance = new AStarFinder({
     width: 8,
     height: 8
   },
-  heuristicFunction: "Manhatten"
+  heuristicFunction: "Manhattan"
 });
 ```
 

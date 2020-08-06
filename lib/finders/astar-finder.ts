@@ -43,7 +43,7 @@ export class AStarFinder {
       aParams.diagonalAllowed !== undefined ? aParams.diagonalAllowed : true;
 
     // Set heuristic function
-    this.heuristic = aParams.heuristic ? aParams.heuristic : 'Manhatten';
+    this.heuristic = aParams.heuristic ? aParams.heuristic : 'Manhattan';
 
     // Set if start node included
     this.includeStartNode =

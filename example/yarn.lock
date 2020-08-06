@@ -330,10 +330,10 @@ assign-symbols@^1.0.0:
   resolved "https://registry.yarnpkg.com/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
   integrity sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
 
-astar-typescript@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/astar-typescript/-/astar-typescript-1.2.0.tgz#ee6cec26718b25cb6ba20f238d1b352a4e35e671"
-  integrity sha512-nidjd+JgpyXtrIRaCtY9joUygFQtaSDQ0q23DbHd7RUHK9g3zsFVxIonqqdDHJs4AmIa2HAldFoiiPw4SlGOdQ==
+astar-typescript@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/astar-typescript/-/astar-typescript-1.2.1.tgz#3a38e85f04511c88aff92a7dbba4ff4a14cc4cc3"
+  integrity sha512-DXK58vIE5jQmIqGI1szc0pMgaTF+BgFeHGcitZmvIiAFaOPAhd9BbJI8Mgy84GT1yh0Th7KOIf71WMbQ57g0vw==
   dependencies:
     lodash "4.17.19"
 

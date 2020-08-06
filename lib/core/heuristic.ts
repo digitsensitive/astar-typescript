@@ -27,9 +27,11 @@ export function calculateHeuristic(
   const dy = Math.abs(pos1.y - pos0.y);
 
   switch (heuristicFunction) {
+    // TODO: Remove Manhatten in next major release
     case 'Manhatten':
+    case 'Manhattan':
       /**
-       * Calculate the Manhatten distance.
+       * Calculate the Manhattan distance.
        * Generally: Overestimates distances because diagonal movement not taken into accout.
        * Good for a 4-connected grid (diagonal movement not allowed)
        */
