@@ -65,7 +65,7 @@ export class MainScene extends Phaser.Scene {
       this.aMatrix[i] = Array<number>(this.gridWidth).fill(0);
     }
     this.diagonalMovement = false;
-    this.heuristic = 'Manhatten';
+    this.heuristic = 'Manhattan';
     this.weight = 1;
     this.aStarInstance = new AStarFinder({
       grid: {
@@ -158,7 +158,7 @@ export class MainScene extends Phaser.Scene {
         this.destroyPathAndSurroundingNodes();
         this.resetAStarInstance();
       },
-      ['Manhatten', 'Euclidean', 'Chebyshev', 'Octile']
+      ['Manhattan', 'Euclidean', 'Chebyshev', 'Octile']
     );
 
     this.datGuiServiceInstance.addNumberController(

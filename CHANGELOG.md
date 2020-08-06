@@ -10,10 +10,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.2.2] - 2020-08-06
+
+### Changed
+- Update astar-typescript version from 1.2.0 to 1.2.1 in example 
+
+### Fixed
+- Fix misspelling: It is not manhatt**e**n, it is manhatt**a**n
+  (Thank you @spassvogel)
+
+---
+
 ## [1.2.1] - 2020-08-06
 
 ### Changed
-- Update astar-typescript version from 1.1.9 to 1.2.0 in example 
+- Update astar-typescript version from 1.1.9 to 1.2.0 in example
 
 ---
 
