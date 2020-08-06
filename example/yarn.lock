@@ -330,12 +330,12 @@ assign-symbols@^1.0.0:
   resolved "https://registry.yarnpkg.com/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
   integrity sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
 
-astar-typescript@1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/astar-typescript/-/astar-typescript-1.1.9.tgz#1f3e3bc977159c70089facc2f0c96a6823026f83"
-  integrity sha512-pv4081H7APoqydCRT4rHl2qe4HLzTHpC4ohGEPMxQJ2ieCqLXkhs13TG8SuM5ruZx+R42ddITwr+ZgwgHr43Iw==
+astar-typescript@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/astar-typescript/-/astar-typescript-1.2.0.tgz#ee6cec26718b25cb6ba20f238d1b352a4e35e671"
+  integrity sha512-nidjd+JgpyXtrIRaCtY9joUygFQtaSDQ0q23DbHd7RUHK9g3zsFVxIonqqdDHJs4AmIa2HAldFoiiPw4SlGOdQ==
   dependencies:
-    lodash "4.17.15"
+    lodash "4.17.19"
 
 async-each@^1.0.1:
   version "1.0.3"
@@ -2157,12 +2157,7 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash@4.17.15:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
-
-lodash@^4.17.11, lodash@^4.17.14:
+lodash@4.17.19, lodash@^4.17.11, lodash@^4.17.14:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
