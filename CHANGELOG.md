@@ -10,6 +10,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.2.0] - 2020-08-06
+
+### Added
+- Add `yarn.lock` in root
+- Add `yarn.lock` in example folder
+- Add `package-lock.json` in example folder
+
+### Changed
+- Update TypeScript version from 3.8.3 to 3.9.7
+- Update lodash version from 4.17.15 to 4.17.19
+- Only import `minBy` and `remove` from lodash
+- Update dependencies in example
+
+### Fixed
+- Remove `yarn.lock` from the `.gitignore` file list
+
+---
+
 ## [1.1.9] - 2020-04-17
 
 ### Changed
