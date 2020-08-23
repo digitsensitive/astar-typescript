@@ -150,7 +150,30 @@ this.aStarInstance = new AStarFinder({
     width: 8,
     height: 8
   },
-  heuristicFunction: "Manhattan"
+  heuristic: "Manhattan"
+});
+```
+
+Set a maxCost for each grid node to enable using cost in the pathfinding calculation allowing you to make nodes less preferable.
+The example below would make nodes with 5 not walkable, and make the path finding prefer to avoid 2's
+
+``` ts
+let myMatrix = [
+  [0, 0, 2, 2, 2, 2, 0, 0],
+  [0, 0, 2, 2, 2, 2, 0, 5],
+  [0, 0, 5, 5, 0, 5, 5, 0],
+  [0, 0, 5, 0, 0, 0, 5, 0],
+  [0, 0, 0, 0, 0, 0, 5, 0],
+  [5, 5, 5, 0, 5, 0, 5, 0],
+  [0, 0, 0, 0, 5, 0, 5, 0],
+  [0, 0, 5, 0, 0, 0, 0, 0]
+];
+
+this.aStarInstance = new AStarFinder({
+  grid: {
+    matrix: myMatrix,
+    maxCost: 5,
+  }
 });
 ```
 
