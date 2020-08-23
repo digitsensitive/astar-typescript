@@ -31,7 +31,8 @@ export class AStarFinder {
       width: aParams.grid.width,
       height: aParams.grid.height,
       matrix: aParams.grid.matrix || undefined,
-      densityOfObstacles: aParams.grid.densityOfObstacles || 0
+      densityOfObstacles: aParams.grid.densityOfObstacles || 0,
+      maxCost: aParams.grid.maxCost || 0,
     });
 
     // Init lists
@@ -146,8 +147,9 @@ export class AStarFinder {
         // Calculate the g value of the neightbor
         const nextGValue =
           currentNode.getGValue() +
+          neightbor.getCost() +
           (neightbor.position.x !== currentNode.position.x ||
-          neightbor.position.y! == currentNode.position.y
+            neightbor.position.y! == currentNode.position.y
             ? this.weight
             : this.weight * 1.41421);
 

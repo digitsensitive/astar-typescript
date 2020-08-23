@@ -6,6 +6,7 @@ export class Grid {
   readonly width: number;
   readonly height: number;
   readonly numberOfFields: number;
+  readonly maxCost: number;
 
   // The node grid
   private gridNodes: Node[][];
@@ -21,6 +22,8 @@ export class Grid {
       this.height = aParams.matrix.length;
       this.numberOfFields = this.width * this.height;
     }
+
+    this.maxCost = aParams.maxCost || 0;
 
     // Create and generate the matrix
     this.gridNodes = this.buildGridWithNodes(
@@ -85,10 +88,15 @@ export class Grid {
      */
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        if (matrix[y][x]) {
-          newGrid[y][x].setIsWalkable(false);
+        if (this.maxCost) {
+          newGrid[y][x].setIsWalkable(matrix[y][x] < this.maxCost);
+          newGrid[y][x].setCost(matrix[y][x]);
         } else {
-          newGrid[y][x].setIsWalkable(true);
+          if (matrix[y][x]) {
+            newGrid[y][x].setIsWalkable(false);
+          } else {
+            newGrid[y][x].setIsWalkable(true);
+          }
         }
       }
     }
@@ -198,7 +206,8 @@ export class Grid {
         cloneGrid[y][x] = new Node({
           id: id,
           position: { x: x, y: y },
-          walkable: this.gridNodes[y][x].getIsWalkable()
+          walkable: this.gridNodes[y][x].getIsWalkable(),
+          cost: this.gridNodes[y][x].getCost(),
         });
 
         id++;
