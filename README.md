@@ -155,7 +155,10 @@ this.aStarInstance = new AStarFinder({
 ```
 
 Set a maxCost for each grid node to enable using cost in the pathfinding calculation allowing you to make nodes less preferable.
-The example below would make nodes with 5 not walkable, and make the path finding prefer to avoid 2's
+
+> 0 = walkable
+> 2 = walkable but not prefered
+> 5 = not walkable
 
 ``` ts
 let myMatrix = [
