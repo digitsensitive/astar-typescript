@@ -1,19 +1,23 @@
 {
   "name": "astar-typescript",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A*(a-star) pathfinding in TypeScript",
   "keywords": [
     "A-star",
     "A*",
-    "search algorithm",
+    "Algorithm",
+    "Graph",
     "Pathfinding",
+    "Search",
+    "Shakey",
+    "Traversal",
     "TypeScript"
   ],
   "bugs": {
     "email": "digit.sensitivee@gmail.com"
   },
   "license": "MIT",
-  "author": "Digitsensitive <digit.sensitivee@gmail.com>",
+  "author": "digitsensitive <digit.sensitivee@gmail.com>",
   "main": "dist/astar.js",
   "types": "dist/astar.d.ts",
   "scripts": {
@@ -22,10 +26,10 @@
     "run-example": "cd example && yarn install && yarn run dev"
   },
   "dependencies": {
-    "lodash": "4.17.19"
+    "lodash": "4.17.20"
   },
   "devDependencies": {
-    "typescript": "3.9.7"
+    "typescript": "4.1.3"
   },
   "repository": {
     "type": "git",
