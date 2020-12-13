@@ -358,10 +358,10 @@ assign-symbols@^1.0.0:
   resolved "https://registry.yarnpkg.com/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
   integrity sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
 
-astar-typescript@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/astar-typescript/-/astar-typescript-1.2.3.tgz#5475686ede33c381611132cdb115f3d6244b7bd6"
-  integrity sha512-7pLA1P4n7j5GFGEZMHXgIpnhVMMMJrAzkqkdFut449rXvpZEdlFXxZXGMgrZsUvbMoyE+wZSRZZo90LZX6uGIQ==
+astar-typescript@1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/astar-typescript/-/astar-typescript-1.2.4.tgz#58b287c5046ffed6f60eba154a2ce0d1d0976ea2"
+  integrity sha512-XFGkklFM8tzr+oggYTa6y0xWPNXSawzDSf95hZT9Kbqfxr1OXo1Ai/yDyQZ2V708ZcYdVEZimeSvZSAAbjwG7w==
   dependencies:
     lodash "4.17.20"
 
@@ -1550,11 +1550,6 @@ inherits@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
-
-ini@^1.3.4, ini@^1.3.5:
-  version "1.3.8"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
-  integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
 internal-ip@^4.3.0:
   version "4.3.0"
