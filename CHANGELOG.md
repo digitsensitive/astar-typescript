@@ -10,6 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.2.3] - 2020-12-13
+
+### Changed
+- Update `loadash` from `4.17.19` to `4.17.20`
+- Update `typescript` from `3.9.7` to `4.1.3`
+- Update `package-lock.json` and `yarn.lock`
+
+---
+
 ## [1.2.2] - 2020-08-06
 
 ### Changed
@@ -36,8 +45,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add `package-lock.json` in example folder
 
 ### Changed
-- Update TypeScript version from 3.8.3 to 3.9.7
-- Update lodash version from 4.17.15 to 4.17.19
+- Update `typescript` from `3.8.3` to `3.9.7`
+- Update `loadash` from `4.17.15` to `4.17.19`
 - Only import `minBy` and `remove` from lodash
 - Update dependencies in example
 
