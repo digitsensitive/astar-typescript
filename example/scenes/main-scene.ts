@@ -161,6 +161,19 @@ export class MainScene extends Phaser.Scene {
       ['Manhattan', 'Euclidean', 'Chebyshev', 'Octile']
     );
 
+    this.datGuiServiceInstance.addController(
+      'Diagonal movement',
+      this,
+      'diagonalMovement',
+      true,
+      (value) => {
+        this.diagonalMovement = value;
+        this.aStarInstance.setDiagonalMovement(this.diagonalMovement);
+        this.destroyPathAndSurroundingNodes();
+        this.resetAStarInstance();
+      }
+    );
+
     this.datGuiServiceInstance.addNumberController(
       'Weight',
       this,

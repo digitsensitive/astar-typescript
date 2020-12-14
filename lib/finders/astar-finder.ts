@@ -19,7 +19,7 @@ export class AStarFinder {
   private openList: Node[];
 
   // Pathway variables
-  readonly diagonalAllowed: boolean;
+  private diagonalAllowed: boolean;
   private heuristic: Heuristic;
   readonly includeStartNode: boolean;
   readonly includeEndNode: boolean;
@@ -180,6 +180,14 @@ export class AStarFinder {
    */
   public setHeuristic(newHeuristic: Heuristic): void {
     this.heuristic = newHeuristic;
+  }
+
+  /**
+   * Set diagonal movement.
+   * @param diagonalMovementAllowed
+   */
+  public setDiagonalMovement(diagonalMovementAllowed: boolean): void {
+    this.diagonalAllowed = diagonalMovementAllowed;
   }
 
   /**

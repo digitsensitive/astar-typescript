@@ -25,7 +25,6 @@
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
-    "astar-typescript": "1.2.4",
     "phaser": "3.24.1",
     "dat.gui": "0.7.7"
   },
