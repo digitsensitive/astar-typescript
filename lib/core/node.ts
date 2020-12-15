@@ -11,6 +11,7 @@ export class Node {
   private isOnClosedList: boolean;
   private isOnOpenList: boolean;
   private isWalkable: boolean;
+  private cost: number;
 
   constructor(aParams: INodeConstructor) {
     this.id = aParams.id;
@@ -23,6 +24,7 @@ export class Node {
     this.isOnClosedList = false;
     this.isOnOpenList = false;
     this.isWalkable = aParams.walkable || true;
+    this.cost = aParams.cost || 0;
   }
 
   /**
@@ -89,6 +91,10 @@ export class Node {
     return this.isWalkable;
   }
 
+  public getCost(): number {
+    return this.cost;
+  }
+
   /**
    * Setter functions
    */
@@ -106,5 +112,9 @@ export class Node {
 
   public setIsWalkable(isWalkable: boolean): void {
     this.isWalkable = isWalkable;
+  }
+
+  public setCost(cost: number): void {
+    this.cost = cost;
   }
 }
