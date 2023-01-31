@@ -1,5 +1,5 @@
-AStar-Typescript
-==============
+# AStar-Typescript
+
 [![GitHub Stars](https://img.shields.io/david/digitsensitive/astar-typescript?style=flat-square)](https://david-dm.org/digitsensitive/astar-typescript)
 [![GitHub Stars](https://img.shields.io/github/stars/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/network/members) [![GitHub Issues](https://img.shields.io/github/issues/digitsensitive/astar-typescript?style=flat-square)](https://github.com/digitsensitive/astar-typescript/issues) [![Current Version](https://img.shields.io/npm/v/astar-typescript?style=flat-square)](https://www.npmjs.com/package/astar-typescript)
 
@@ -7,9 +7,9 @@ AStar-Typescript
   <img width=100% src="astar_logo.png">
 </p>
 
-#### The A* search algorithm library in TypeScript
+#### The A-star search algorithm library in TypeScript
 
-AStar-TypeScript is an A* pathfinding API written in TypeScript to use for your HTML5 games or other browser-based projects.
+AStar-TypeScript is an A-star pathfinding API written in TypeScript to use for your HTML5 games or other browser-based projects.
 
 This library was influenced and inspired by [@qioa - PathFinding.js](https://github.com/qiao/PathFinding.js), [@bgrins - javascript-astar](https://github.com/bgrins/javascript-astar), [@prettymuchbryce - easystarjs](https://github.com/prettymuchbryce/easystarjs) and [@redblobgames](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
 
@@ -56,19 +56,19 @@ bower install astar-typescript --save
 ### TypeScript
 
 ```typescript
-import { AStarFinder } from "astar-typescript";
+import { AStarFinder } from 'astar-typescript';
 ```
 
 ### Javascript
 
 ```javascript
-let AStarFinder = require("astar-typescript");
+let AStarFinder = require('astar-typescript');
 ```
 
 ### AMD
 
 ```javascript
-define(function(require,exports,module){
+define(function (require, exports, module) {
   let AStarFinder = require('astar-typescript');
 });
 ```
@@ -84,10 +84,11 @@ private aStarInstance: AStarFinder;
 Load grid data:
 
 Using an **array** (hardcoded or from a Tilemap-Editor)
+
 > 0 = walkable
 > 1 = not walkable
 
-``` ts
+```ts
 let myMatrix = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 1],
@@ -108,7 +109,7 @@ this.aStarInstance = new AStarFinder({
 
 or randomly generated array **from width and height**
 
-``` ts
+```ts
 this.aStarInstance = new AStarFinder({
   grid: {
     width: 8,
@@ -132,7 +133,7 @@ Additional parameters may be passed to adapt your finder.
 
 If you want to disable `diagonal movements`:
 
-``` ts
+```ts
 this.aStarInstance = new AStarFinder({
   grid: {
     width: 8,
@@ -144,13 +145,13 @@ this.aStarInstance = new AStarFinder({
 
 Set the `heuristic function` (Manhattan, Euclidean, Chebyshev or Octile):
 
-``` ts
+```ts
 this.aStarInstance = new AStarFinder({
   grid: {
     width: 8,
     height: 8
   },
-  heuristicFunction: "Manhattan"
+  heuristicFunction: 'Manhattan'
 });
 ```
 
@@ -161,7 +162,7 @@ Depending on the `weight` value you can decide if you prefer speed or accuracy.
 The lower the `weight` is, the lower will the heuristic function get, which will
 make the A* slower.
 
-``` ts
+```ts
 this.aStarInstance = new AStarFinder({
   grid: {
     width: 8,
@@ -173,7 +174,7 @@ this.aStarInstance = new AStarFinder({
 
 Include or Exclude the `start and end node`:
 
-``` ts
+```ts
 this.aStarInstance = new AStarFinder({
   grid: {
     width: 8,
@@ -190,7 +191,6 @@ This library uses [Prettier](https://github.com/prettier/prettier).
 The configuration used can be seen in the `.prettierrc` file.
 More informations about the format options can be found [here](https://prettier.io/docs/en/options.html).
 
-
 ## License
 
 [MIT License](https://opensource.org/licenses/mit-license.php)
@@ -198,14 +198,14 @@ More informations about the format options can be found [here](https://prettier.
 Copyright (c) 2017 - 2020 digitsensitive <digit.sensitivee@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal 
-in the Software without restriction, including without limitation the rights 
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-copies of the Software, and to permit persons to whom the Software is 
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
+copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,

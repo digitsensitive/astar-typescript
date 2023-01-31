@@ -1,6 +1,6 @@
 {
   "name": "astar-typescript",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A*(a-star) pathfinding in TypeScript",
   "keywords": [
     "A-star",
@@ -29,7 +29,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "typescript": "4.1.3"
+    "typescript": "4.9.5"
   },
   "repository": {
     "type": "git",

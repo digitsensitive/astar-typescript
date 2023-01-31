@@ -1,34 +1,35 @@
-var path = require("path");
-var pathToPhaser = path.join(__dirname, "/node_modules/phaser/");
-var phaser = path.join(pathToPhaser, "dist/phaser.js");
+const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, "game.ts"),
+  entry: path.resolve(__dirname, 'game.ts'),
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   module: {
     rules: [
-      { test: /\.ts$/, loader: "ts-loader", exclude: "/node_modules/" },
       {
-        test: /phaser\.js$/,
-        loader: "expose-loader",
-        options: { exposes: { globalName: "Phaser", override: true } },
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       },
-    ],
+      {
+        test: require.resolve('Phaser'),
+        loader: 'expose-loader',
+        options: { exposes: { globalName: 'Phaser', override: true } }
+      }
+    ]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "./"),
-    publicPath: "/dist/",
-    host: "127.0.0.1",
+    static: path.resolve(__dirname, './'),
+    host: 'localhost',
     port: 8080,
-    open: true,
+    open: false
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: ['.ts', '.js'],
     alias: {
-      phaser: phaser,
-    },
-  },
+      phaser: path.join(__dirname, '/node_modules/phaser/dist/phaser.js')
+    }
+  }
 };
