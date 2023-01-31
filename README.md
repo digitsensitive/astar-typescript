@@ -151,7 +151,7 @@ this.aStarInstance = new AStarFinder({
     width: 8,
     height: 8
   },
-  heuristicFunction: 'Manhattan'
+  heuristic: 'Manhattan'
 });
 ```
 
