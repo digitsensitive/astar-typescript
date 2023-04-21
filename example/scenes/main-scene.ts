@@ -1,7 +1,7 @@
 /**
  * @description Main Scene
  * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2019 - 2020 Digitsensitive
+ * @copyright 2019 - 2023 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 

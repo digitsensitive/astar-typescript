@@ -85,11 +85,7 @@ export class Grid {
      */
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        if (matrix[y][x]) {
-          newGrid[y][x].setIsWalkable(false);
-        } else {
-          newGrid[y][x].setIsWalkable(true);
-        }
+        newGrid[y][x].setIsWalkable(matrix[y][x] ? false : true);
       }
     }
 
