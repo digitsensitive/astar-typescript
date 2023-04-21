@@ -14,13 +14,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [1.2.7] - 2023-04-21
+## [1.X.X] - 2023-XX-XX
 
 ### Changed
 
 - Update most dependencies in `./` and `./example`
 - Update Copyright to 2013 in different locations
-- Small optimization in `grid.ts`
+- Small optimizations in `grid.ts`
 
 ---
 
