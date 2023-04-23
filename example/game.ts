@@ -1,7 +1,7 @@
 /**
  * @description Main Game Class
  * @author Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright 2019 - 2020 Digitsensitive
+ * @copyright 2019 - 2023 Digitsensitive
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
@@ -32,5 +32,5 @@ export class Game extends Phaser.Game {
 
 // when the page is loaded, create our game instance
 window.addEventListener('load', () => {
-  var game = new Game(config);
+  const game = new Game(config);
 });

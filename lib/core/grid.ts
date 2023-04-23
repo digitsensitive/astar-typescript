@@ -85,11 +85,7 @@ export class Grid {
      */
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        if (matrix[y][x]) {
-          newGrid[y][x].setIsWalkable(false);
-        } else {
-          newGrid[y][x].setIsWalkable(true);
-        }
+        newGrid[y][x].setIsWalkable(matrix[y][x] ? false : true);
       }
     }
 
@@ -137,8 +133,13 @@ export class Grid {
   ): Node[] {
     const surroundingNodes: Node[] = [];
 
-    for (var y = currentPosition.y - 1; y <= currentPosition.y + 1; y++) {
-      for (var x = currentPosition.x - 1; x <= currentPosition.x + 1; x++) {
+    const minX = currentPosition.x - 1;
+    const maxX = currentPosition.x + 1;
+    const minY = currentPosition.y - 1;
+    const maxY = currentPosition.y + 1;
+
+    for (let y = minY; y <= maxY; y++) {
+      for (let x = minX; x <= maxX; x++) {
         if (this.isOnTheGrid({ x, y })) {
           if (this.isWalkableAt({ x, y })) {
             if (diagnonalMovementAllowed) {

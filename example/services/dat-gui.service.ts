@@ -1,6 +1,6 @@
 /**
  * @author       Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright    2020 digitsensitive
+ * @copyright    2019 - 2023 digitsensitive
  * @description  Dat.Gui Service
  *               dat.gui is a lightweight controller library for JavaScript.
  *               https://github.com/dataarts/dat.gui
