@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'game.ts'),
+  entry: path.resolve(__dirname, 'src/game.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'

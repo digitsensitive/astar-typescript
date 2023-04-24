@@ -5,7 +5,7 @@
  * @license {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-import { AStarFinder } from '../../lib/astar';
+import { AStarFinder } from '../../../lib/astar';
 import { DatGuiService } from '../services/dat-gui.service';
 import { GameObject } from '../objects/gameobject';
 
