@@ -8,6 +8,7 @@
  * https://github.com/riscy/a_star_on_grids#heuristics
  */
 
+import { IPoint } from '../interfaces/astar.interfaces';
 import { Heuristic } from '../types/astar.types';
 
 /**
@@ -19,9 +20,9 @@ import { Heuristic } from '../types/astar.types';
  */
 export function calculateHeuristic(
   heuristicFunction: Heuristic,
-  pos0,
-  pos1,
-  weight
+  pos0: IPoint,
+  pos1: IPoint,
+  weight: number
 ): number {
   const dx = Math.abs(pos1.x - pos0.x);
   const dy = Math.abs(pos1.y - pos0.y);

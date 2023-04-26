@@ -131,6 +131,8 @@ let myPathway = this.aStarInstance.findPath(startPos, goalPos);
 
 Additional parameters may be passed to adapt your finder.
 
+### Diagonal movements
+
 If you want to disable `diagonal movements`:
 
 ```ts
@@ -142,6 +144,8 @@ this.aStarInstance = new AStarFinder({
   diagonalAllowed: false
 });
 ```
+
+### Heuristic function
 
 Set the `heuristic function` (Manhattan, Euclidean, Chebyshev or Octile):
 
@@ -172,6 +176,8 @@ this.aStarInstance = new AStarFinder({
 });
 ```
 
+### Start and End Node
+
 Include or Exclude the `start and end node`:
 
 ```ts
@@ -182,6 +188,18 @@ this.aStarInstance = new AStarFinder({
   },
   includeStartNode: true,
   includeEndNode: true
+});
+```
+
+### Allow path as close as possible
+
+```ts
+this.aStarInstance = new AStarFinder({
+  grid: {
+    width: 8,
+    height: 8
+  },
+  allowPathAsCloseAsPossible: true
 });
 ```
 

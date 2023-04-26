@@ -19,6 +19,7 @@ export class AStarFinder {
   private openList: Node[];
 
   // Pathway variables
+  private allowPathAsCloseAsPossible: boolean;
   readonly diagonalAllowed: boolean;
   private heuristic: Heuristic;
   readonly includeStartNode: boolean;
@@ -52,6 +53,10 @@ export class AStarFinder {
     // Set if end node included
     this.includeEndNode =
       aParams.includeEndNode !== undefined ? aParams.includeEndNode : true;
+
+    // Default path as close as possible not allowed
+    this.allowPathAsCloseAsPossible =
+      aParams.allowPathAsCloseAsPossible || false;
 
     // Set weight
     this.weight = aParams.weight || 1;
@@ -170,7 +175,19 @@ export class AStarFinder {
         }
       }
     }
-    // Path could not be created
+
+    // At this point the path to the end position could NOT be created
+
+    // Return path as close as possible if enabled
+    if (this.allowPathAsCloseAsPossible) {
+      return backtrace(
+        this.closedList[this.closedList.length - 1],
+        this.includeStartNode,
+        false
+      );
+    }
+
+    // Return empty path, because could NOT be created
     return [];
   }
 

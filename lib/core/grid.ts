@@ -123,8 +123,7 @@ export class Grid {
 
   /**
    * Get surrounding nodes.
-   * @param currentXPos [x-position on the grid]
-   * @param currentYPos [y-position on the grid]
+   * @param currentPosition [IPoint on the grid]
    * @param diagnonalMovementAllowed [is diagnonal movement allowed?]
    */
   public getSurroundingNodes(
@@ -140,20 +139,24 @@ export class Grid {
 
     for (let y = minY; y <= maxY; y++) {
       for (let x = minX; x <= maxX; x++) {
-        if (this.isOnTheGrid({ x, y })) {
-          if (this.isWalkableAt({ x, y })) {
-            if (diagnonalMovementAllowed) {
-              surroundingNodes.push(this.getNodeAt({ x, y }));
-            } else {
-              if (x == currentPosition.x || y == currentPosition.y) {
-                surroundingNodes.push(this.getNodeAt({ x, y }));
-              }
+        // Evaluate if NOT current position
+        if (x !== currentPosition.x || y !== currentPosition.y) {
+          // Evaluate if current position is on the grid AND walkable
+          if (
+            this.isOnTheGrid({ x: x, y: y }) &&
+            this.isWalkableAt({ x: x, y: y })
+          ) {
+            // Add node
+            // if diagonal movement is allowed OR
+            // if the node lies on the cross through the center node
+            if (
+              diagnonalMovementAllowed ||
+              x == currentPosition.x ||
+              y == currentPosition.y
+            ) {
+              surroundingNodes.push(this.getNodeAt({ x: x, y: y }));
             }
-          } else {
-            continue;
           }
-        } else {
-          continue;
         }
       }
     }
@@ -190,21 +193,22 @@ export class Grid {
    * Get a clone of the grid
    */
   public clone(): Node[][] {
-    const cloneGrid: Node[][] = [];
-    let id: number = 0;
+    const clonedGrid: Node[][] = [];
+    let nodeId: number = 0;
 
     for (let y = 0; y < this.height; y++) {
-      cloneGrid[y] = [];
+      clonedGrid[y] = [];
       for (let x = 0; x < this.width; x++) {
-        cloneGrid[y][x] = new Node({
-          id: id,
+        clonedGrid[y][x] = new Node({
+          id: nodeId,
           position: { x: x, y: y },
           walkable: this.gridNodes[y][x].getIsWalkable()
         });
 
-        id++;
+        nodeId++;
       }
     }
-    return cloneGrid;
+
+    return clonedGrid;
   }
 }
