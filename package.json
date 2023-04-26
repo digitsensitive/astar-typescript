@@ -1,6 +1,6 @@
 {
   "name": "astar-typescript",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "A*(a-star) pathfinding in TypeScript",
   "keywords": [
     "A-star",
@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digitsensitive/astar-typescript.git"
+    "url": "https://github.com/digitsensitive/astar-typescript.git"
   },
   "homepage": "https://github.com/digitsensitive/astar-typescript#readme"
 }

@@ -7,6 +7,7 @@ export interface IAStarFinderConstructor {
   weight?: number;
   includeStartNode?: boolean;
   includeEndNode?: boolean;
+  allowPathAsCloseAsPossible?: boolean;
 }
 
 export interface IGridConstructor {

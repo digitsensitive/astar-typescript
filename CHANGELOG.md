@@ -14,13 +14,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [1.X.X] - 2023-XX-XX
+## [1.2.7] - 2023-04-26
+
+### Added
+
+- Implement `Get as close as possible` option when the path is blocked ([Issue #10, @sefabaser](https://github.com/digitsensitive/astar-typescript/issues/10))
 
 ### Changed
 
 - Update most dependencies in `./` and `./example`
-- Update Copyright to 2013 in different locations
-- Small optimizations in `grid.ts`
+- Update Copyright to 2023 in different locations
+- Small optimizations in `grid.ts` and `util.ts`
+- Add `CopyPlugin` and `HtmlWebpackPlugin` to webpack
 
 ---
 

@@ -13,13 +13,8 @@ export function backtrace(
   // Init empty path
   const path: number[][] = [];
 
-  let currentNode: Node;
-  if (includeEndNode) {
-    // Attach the end node to be the current node
-    currentNode = node;
-  } else {
-    currentNode = node.getParent();
-  }
+  // If `includeEndNode` is enabled, attach the end node to be the current node
+  let currentNode: Node = includeEndNode ? node : node.getParent();
 
   // Loop as long the current node has a parent
   while (currentNode.getParent()) {
